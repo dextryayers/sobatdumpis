@@ -6,7 +6,7 @@ import MemberCard from '../../components/editorial/MemberCard.astro';
 import Button from '../../components/ui/Button.astro';
 import { members } from '../../data/members';
 
-const title = 'People';
+const title = 'Orang';
 const description =
   'Kenali orang-orang di balik Sobat Dumpis — individu dengan minat, latar belakang, dan cerita yang berbeda-beda.';
 
@@ -15,7 +15,7 @@ const interests = Array.from(new Set(members.flatMap((member) => member.interest
 );
 
 const filterOptions = [
-  { value: 'all', label: 'All people' },
+  { value: 'all', label: 'Semua orang' },
   ...interests.map((interest) => ({ value: interest, label: interest })),
 ];
 
@@ -27,43 +27,44 @@ const searchText = (member: (typeof members)[number]) =>
 
 <BaseLayout title={title} description={description}>
   <PageHero
-    index="PEOPLE — 02"
-    label="PEOPLE DIRECTORY"
-    title="DIFFERENT PEOPLE."
-    accent="ONE COMMON SPACE."
+    index="ORANG — 02"
+    label="DIREKTORI ORANG"
+    title="ORANG BERBEDA."
+    accent="SATU RUANG YANG SAMA."
     description="Tidak ada satu tipe orang di Sobat Dumpis. Yang menyatukan kami sederhana: rasa ingin tahu, kemauan untuk berbagi, dan ruang untuk menjadi diri sendiri."
   />
 
   <section class="ed-section" aria-labelledby="directory-title">
+    <span class="side-rail" aria-hidden="true">Direktori orang</span>
     <div class="ed-container" data-filter-root>
       <div class="flex flex-wrap items-end justify-between gap-6">
         <div>
-          <h2 id="directory-title" class="ed-h2">MEET EVERYONE.</h2>
+          <h2 id="directory-title" class="ed-h2">KENALI SEMUANYA.</h2>
           <p class="ed-body mt-4 max-w-xl">
             Cari berdasarkan nama, nama panggilan, atau minat. Setiap profil adalah
             placeholder sampai data anggota asli diberikan.
           </p>
         </div>
         <p class="ed-meta" aria-live="polite">
-          <span data-filter-count>{members.length}</span> people
+          <span data-filter-count>{members.length}</span> orang
         </p>
       </div>
 
       <div class="filter-bar mt-10">
         <div class="filter-row">
           <label class="filter-search-wrap">
-            <Search class="filter-search-icon" size={16} strokeWidth={1.5} aria-hidden="true" />
-            <span class="sr-only">Search people</span>
+            <Search class="filter-search-icon" size={16} stroke-width={1.5} aria-hidden="true" />
+            <span class="sr-only">Cari orang</span>
             <input
               type="search"
               class="filter-search"
-              placeholder="Search people or interests…"
+              placeholder="Cari orang atau minat…"
               data-filter-search
               autocomplete="off"
             />
           </label>
 
-          <div class="filter-chips" role="group" aria-label="Filter people by interest">
+          <div class="filter-chips" role="group" aria-label="Filter orang berdasarkan minat">
             {
               filterOptions.map((option) => (
                 <button
@@ -105,17 +106,17 @@ const searchText = (member: (typeof members)[number]) =>
     <div class="ed-container flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
       <div>
         <p class="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-paper/60">
-          Your name could be here
+          Namamu bisa ada di sini
         </p>
         <h2 id="people-join-title" class="mt-4 font-display text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1.02]">
-          THE DOOR<br />IS OPEN.
+          PINTUNYA<br />TERBUKA.
         </h2>
       </div>
       <div class="flex flex-col items-start gap-4 md:items-end">
         <p class="ed-body ed-body--stone max-w-sm md:text-right">
           Kamu tidak perlu punya keahlian khusus. Cukup rasa ingin tahu dan niat baik.
         </p>
-        <Button href="/join">Become a Part of Us</Button>
+        <Button href="/join">Jadilah Bagian dari Kami</Button>
       </div>
     </div>
   </section>

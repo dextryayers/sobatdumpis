@@ -38,7 +38,7 @@ const defaultJsonLd = {
   name: 'Sobat Dumpis',
   alternateName: 'SOBAT DUMPIS',
   url: site.url,
-  logo: new URL('/assets/logo-mark.svg', site.url).toString(),
+  logo: new URL('/assets/logo.png', site.url).toString(),
   description: site.description,
   email: site.contactEmail,
   foundingDate: String(site.establishedYear),
@@ -60,7 +60,6 @@ const structuredData = jsonLd ?? defaultJsonLd;
     {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <link rel="icon" href="/assets/favicon.ico" sizes="any" />
-    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" type="application/xml" />
 
@@ -92,10 +91,16 @@ const structuredData = jsonLd ?? defaultJsonLd;
     <script>
       import '../scripts/animations/site';
       import '../scripts/interactions/navigation';
+      import '../scripts/interactions/theme';
     </script>
   </head>
   <body class="bg-paper min-h-screen">
-    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="loading-screen" id="loading-screen" aria-hidden="true">
+      <img src="/assets/logo.png" alt="" class="loading-screen__logo" />
+      <div class="loading-screen__bar"></div>
+      <span class="loading-screen__text">Memuat Sobat Dumpis…</span>
+    </div>
+    <a class="skip-link" href="#main-content">Lewati ke konten</a>
     <SiteHeader />
     <main id="main-content" tabindex="-1">
       <slot />

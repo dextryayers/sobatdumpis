@@ -12,31 +12,34 @@ interface Props {
 const { index, label, title, accent, description } = Astro.props;
 ---
 
-<section class="page-hero" aria-labelledby="page-title" data-hero>
+<section class="page-hero relative" aria-labelledby="page-title" data-hero>
+  <span class="side-rail" aria-hidden="true">{label}</span>
   <div class="ed-container">
     <div class="flex flex-wrap items-center justify-between gap-3 border-b border-stone pb-4">
       <Label>{label}</Label>
       <span class="ed-meta">{index}</span>
     </div>
 
-    <h1 id="page-title" class="ed-h1" data-split>
-      {title}
+    <div class="mt-8 grid grid-cols-12 items-end gap-x-6 gap-y-8 md:mt-10">
+      <h1 id="page-title" class="ed-h1 col-span-12 lg:col-span-10" data-split>
+        {title}
+        {
+          accent && (
+            <>
+              <br />
+              <span class="ed-h1-accent ed-accent-serif">{accent}</span>
+            </>
+          )
+        }
+      </h1>
+
       {
-        accent && (
-          <>
-            <br />
-            <span class="ed-h1-accent">{accent}</span>
-          </>
+        description && (
+          <p class="ed-body col-span-12 max-w-xl lg:col-span-4 lg:col-start-9" data-reveal>
+            {description}
+          </p>
         )
       }
-    </h1>
-
-    {
-      description && (
-        <p class="ed-body mt-8 max-w-2xl" data-reveal>
-          {description}
-        </p>
-      )
-    }
+    </div>
   </div>
 </section>

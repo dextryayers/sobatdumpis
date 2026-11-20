@@ -48,28 +48,30 @@ const jsonLd = {
   ogType="profile"
   jsonLd={jsonLd}
 >
-  <section class="page-hero" aria-labelledby="profile-title" data-hero>
+  <section class="page-hero relative" aria-labelledby="profile-title" data-hero>
+    <span class="side-rail" aria-hidden="true">Profil anggota</span>
     <div class="ed-container">
       <div class="flex flex-wrap items-center justify-between gap-3 border-b border-stone pb-4">
-        <a href="/people" class="ed-meta link-underline">← All people</a>
-        <span class="ed-meta">PROFILE — {profileNumber}</span>
+        <a href="/people" class="ed-meta link-underline">← Semua orang</a>
+        <span class="ed-meta">PROFIL — {profileNumber}</span>
       </div>
 
       <div class="mt-10 grid grid-cols-12 items-end gap-x-6 gap-y-10">
         <div class="col-span-12 md:col-span-8">
-          <Label>MEMBER PROFILE</Label>
+          <Label>PROFIL ANGGOTA</Label>
           <h1 id="profile-title" class="ed-h1 mt-6" data-split>{member.name}</h1>
           <p class="ed-meta mt-4">@{member.nickname}</p>
         </div>
         <div class="col-span-8 col-start-3 md:col-span-4 md:col-start-9">
           <img
             src={member.avatarSrc}
-            alt={`Placeholder portrait for ${member.name}`}
-            class="w-full border border-stone"
+            alt={`Foto placeholder untuk ${member.name}`}
+            class="w-full border border-stone img-duo"
             width="320"
             height="320"
             loading="eager"
             decoding="async"
+            data-reveal-image
           />
         </div>
       </div>
@@ -77,17 +79,18 @@ const jsonLd = {
   </section>
 
   <section class="ed-section" aria-labelledby="about-member-title">
+    <span class="side-rail" aria-hidden="true">Tentang {member.nickname}</span>
     <div class="ed-container grid grid-cols-12 gap-x-6 gap-y-12">
       <aside class="col-span-12 md:col-span-4">
         <div class="border-t border-ink pt-4" data-reveal>
-          <span class="ed-label">Interests</span>
+          <span class="ed-label">Minat</span>
           <ul class="member-interests mt-4">
             {member.interests.map((interest) => <li class="member-interest">{interest}</li>)}
           </ul>
         </div>
 
         <div class="mt-10 border-t border-ink pt-4" data-reveal>
-          <span class="ed-label">Elsewhere</span>
+          <span class="ed-label">Tempat lain</span>
           {
             member.socials.length > 0 ? (
               <ul class="mt-4 flex flex-col gap-3">
@@ -101,7 +104,7 @@ const jsonLd = {
                         rel="noopener noreferrer"
                         class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.12em] text-ink-muted transition-colors hover:text-signal"
                       >
-                        <Icon size={15} strokeWidth={1.5} aria-hidden="true" />
+                        <Icon size={15} stroke-width={1.5} aria-hidden="true" />
                         {social.platform}
                       </a>
                     </li>
@@ -109,27 +112,27 @@ const jsonLd = {
                 })}
               </ul>
             ) : (
-              <p class="ed-meta mt-4">Social links not configured yet.</p>
+              <p class="ed-meta mt-4">Tautan sosial belum diatur.</p>
             )
           }
           <a
             href={`mailto:${site.contactEmail}`}
             class="mt-4 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.12em] text-ink-muted transition-colors hover:text-signal"
           >
-            <Mail size={15} strokeWidth={1.5} aria-hidden="true" />
-            Say hello
+            <Mail size={15} stroke-width={1.5} aria-hidden="true" />
+            Sapa kami
           </a>
         </div>
 
         <p class="ed-meta mt-10 max-w-[28ch]">
-          Placeholder profile — real member data will replace this when the directory
-          opens to contributors.
+          Profil placeholder — data anggota asli akan menggantikan ini ketika
+          direktori dibuka untuk kontributor.
         </p>
       </aside>
 
-      <div class="col-span-12 md:col-span-8">
+      <div class="col-span-12 md:col-span-7 md:col-start-6">
         <h2 id="about-member-title" class="ed-h2" data-split>
-          A LITTLE ABOUT<br />{member.nickname.toUpperCase()}.
+          SEDIKIT TENTANG<br />{member.nickname.toUpperCase()}.
         </h2>
 
         <div class="mt-8 space-y-5" data-reveal>
@@ -159,10 +162,10 @@ const jsonLd = {
     <div class="ed-container">
       <div class="flex flex-wrap items-end justify-between gap-6">
         <div>
-          <Label>MORE PEOPLE</Label>
-          <h2 id="more-people-title" class="ed-h2 mt-4">KEEP EXPLORING.</h2>
+          <Label>LEBIH BANYAK ORANG</Label>
+          <h2 id="more-people-title" class="ed-h2 mt-4">TERUS MENJELAJAH.</h2>
         </div>
-        <Button href="/people" variant="outline">Back to Directory</Button>
+        <Button href="/people" variant="outline">Kembali ke Direktori</Button>
       </div>
 
       <div class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>

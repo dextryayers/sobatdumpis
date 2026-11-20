@@ -5,16 +5,21 @@ import Button from '../ui/Button.astro';
 import Label from '../ui/Label.astro';
 ---
 
-<section class="ed-section border-t border-stone" id="moments-section" aria-labelledby="moments-title">
+<section
+  class="ed-section border-t border-stone"
+  id="moments-section"
+  aria-labelledby="moments-title"
+>
+  <span class="side-rail" aria-hidden="true">Momen spontan</span>
   <div class="ed-container">
     <div class="flex flex-wrap items-end justify-between gap-6">
       <div>
-        <Label>06 — MOMENTS</Label>
+        <Label>06 — MOMEN</Label>
         <h2 id="moments-title" class="ed-h2 mt-4">
-          COLLECTING MOMENTS,<br />NOT PERFECTION.
+          MENGUMPULKAN MOMEN,<br />BUKAN KEMPURNAAN.
         </h2>
       </div>
-      <Button href="/moments" variant="outline">View All Moments</Button>
+      <Button href="/moments" variant="outline">Lihat Semua Momen</Button>
     </div>
 
     <div class="moments-masonry mt-12" data-reveal-group>

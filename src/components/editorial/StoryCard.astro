@@ -37,6 +37,7 @@ const published = formatDateShort(story.data.publishedDate);
     <div
       class={`story-cover story-cover--${tone} ${featured ? 'story-cover--wide' : ''}`}
       aria-hidden="true"
+      data-reveal-image
     >
       <span class="story-cover-code">{categoryCode}</span>
       <span class="story-cover-index">{index ?? categoryLabel}</span>

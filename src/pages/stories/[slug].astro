@@ -5,7 +5,7 @@ import Button from '../../components/ui/Button.astro';
 import StoryCard from '../../components/editorial/StoryCard.astro';
 import { getCollection, render } from 'astro:content';
 import { STORY_CATEGORY_LABELS } from '../../data/storyCategories';
-import { formatDateLong, formatDateShort, formatISODate, estimateReadingTime } from '../../utils/format';
+import { formatDateLong, formatISODate, estimateReadingTime } from '../../utils/format';
 import { site } from '../../data/site';
 
 export async function getStaticPaths() {
@@ -51,30 +51,31 @@ const jsonLd = {
   jsonLd={jsonLd}
 >
   <article>
-    <section class="page-hero" aria-labelledby="article-title" data-hero>
+    <section class="page-hero relative" aria-labelledby="article-title" data-hero>
+      <span class="side-rail" aria-hidden="true">Artikel</span>
       <div class="ed-container">
         <div class="flex flex-wrap items-center justify-between gap-3 border-b border-stone pb-4">
-          <a href="/stories" class="ed-meta link-underline">← All stories</a>
-          <span class="ed-meta">ARTICLE — {categoryLabel.toUpperCase()}</span>
+          <a href="/stories" class="ed-meta link-underline">← Semua cerita</a>
+          <span class="ed-meta">ARTIKEL — {categoryLabel.toUpperCase()}</span>
         </div>
 
-        <div class="mt-10 grid grid-cols-12 items-end gap-x-6 gap-y-10">
+        <div class="mt-8 grid grid-cols-12 items-end gap-x-6 gap-y-10">
           <div class="col-span-12 lg:col-span-9">
             <Label>{categoryLabel}</Label>
             <h1 id="article-title" class="ed-h1 mt-6" data-split>{story.data.title}</h1>
           </div>
           <div class="col-span-12 flex flex-col gap-6 lg:col-span-3">
             <div data-reveal>
-              <span class="ed-meta">By</span>
+              <span class="ed-meta">Oleh</span>
               <p class="mt-1 font-display text-xl font-bold">{story.data.author}</p>
             </div>
             <div data-reveal>
-              <span class="ed-meta">Published</span>
+              <span class="ed-meta">Terbit</span>
               <p class="mt-1 font-mono text-sm">{formatDateLong(story.data.publishedDate)}</p>
             </div>
             <div data-reveal>
-              <span class="ed-meta">Reading time</span>
-              <p class="mt-1 font-mono text-sm">{readingTime} min read</p>
+              <span class="ed-meta">Waktu baca</span>
+              <p class="mt-1 font-mono text-sm">{readingTime} menit</p>
             </div>
           </div>
         </div>
@@ -86,17 +87,17 @@ const jsonLd = {
         <div class="col-span-12 md:col-span-3" data-parallax="0.04">
           <div class="sticky top-24 space-y-6">
             <div>
-              <span class="ed-label">Category</span>
+              <span class="ed-label">Kategori</span>
               <p class="mt-2 font-display text-2xl font-bold">{categoryLabel}</p>
             </div>
             <hr class="ed-rule" />
             <p class="ed-meta">
-              This story is part of the Sobat Dumpis editorial publication. It was
-              written by a member and shared with the community.
+              Cerita ini adalah bagian dari publikasi editorial Sobat Dumpis. Ditulis
+              oleh seorang anggota dan dibagikan ke komunitas.
             </p>
             <hr class="ed-rule" />
             <div class="flex items-center gap-3">
-              <span class="ed-meta">Share</span>
+              <span class="ed-meta">Bagikan</span>
               <a
                 href={`mailto:?subject=${encodeURIComponent(story.data.title)}&body=${encodeURIComponent(new URL(`/stories/${story.id}`, site.url).toString())}`}
                 class="font-mono text-xs uppercase tracking-[0.12em] text-ink-muted transition-colors hover:text-signal"
@@ -108,13 +109,13 @@ const jsonLd = {
         </div>
 
         <div class="col-span-12 md:col-span-8 md:col-start-5">
-          <h2 id="article-body-title" class="sr-only">Article body</h2>
+          <h2 id="article-body-title" class="sr-only">Isi artikel</h2>
           <div class="ed-prose">
             <Content />
           </div>
 
           <div class="mt-12 border-t border-ink pt-8">
-            <Button href="/stories" variant="outline">Back to Archive</Button>
+            <Button href="/stories" variant="outline">Kembali ke Arsip</Button>
           </div>
         </div>
       </div>
@@ -124,11 +125,12 @@ const jsonLd = {
   {
     related.length > 0 && (
       <section class="ed-section border-t border-stone" aria-labelledby="related-title">
+        <span class="side-rail" aria-hidden="true">Lanjut membaca</span>
         <div class="ed-container">
           <div class="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <Label>KEEP READING</Label>
-              <h2 id="related-title" class="ed-h2 mt-4">RELATED<br />STORIES.</h2>
+              <Label>TERUS MEMBACA</Label>
+              <h2 id="related-title" class="ed-h2 mt-4">CERITA<br />TERKAIT.</h2>
             </div>
           </div>
 

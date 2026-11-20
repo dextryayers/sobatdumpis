@@ -2,40 +2,46 @@
 import Label from '../ui/Label.astro';
 ---
 
-<section class="ed-section border-t border-stone" id="community-introduction" aria-labelledby="community-intro-title">
+<section
+  class="ed-section border-t border-stone bg-paper-dark"
+  id="community-introduction"
+  aria-labelledby="community-intro-title"
+>
+  <span class="side-rail" aria-hidden="true">Kenapa kami ada</span>
   <div class="ed-container grid grid-cols-12 gap-x-6 gap-y-10">
     <div class="col-span-12 md:col-span-4">
-      <Label>02 — INTRODUCTION</Label>
-      <span class="giant-index mt-8 hidden md:block" aria-hidden="true">02</span>
-      <p class="ed-meta mt-8 max-w-[24ch]">
-        A community of random people with different personalities, interests, and stories.
+      <Label>02 — PENGANTAR</Label>
+      <span class="giant-index mt-8 hidden lg:block" aria-hidden="true">02</span>
+      <p class="ed-meta mt-8 max-w-[26ch]">
+        Komunitas orang-orang acak dengan kepribadian, minat, dan cerita yang berbeda.
       </p>
     </div>
 
-    <div class="col-span-12 md:col-span-8">
+    <div class="col-span-12 md:col-span-7 md:col-start-6">
       <h2 id="community-intro-title" class="ed-h2" data-split>
-        A LITTLE RANDOM.<br />A LOT OF MEANING.
+        SEDIKIT ACAK.<br />BANYAK MAKNA. (DAN MEME.)
       </h2>
 
       <div class="mt-8 grid gap-6 md:grid-cols-2" data-reveal-group>
         <p class="ed-body">
           Sobat Dumpis bukan tentang menjadi sama. Kami adalah kumpulan individu
           dengan cerita, pemikiran, dan keunikan masing-masing. Kami berkumpul bukan
-          untuk menjadi sempurna, tetapi untuk menikmati perjalanan bersama.
+          untuk menjadi sempurna, tetapi untuk menikmati perjalanan bersama (sambil
+          ngakak-ngakak).
         </p>
         <p class="ed-statement">
           "Kami berkumpul bukan untuk menjadi sempurna, tetapi untuk menikmati
-          perjalanan bersama."
+          perjalanan bersama (dan saling roasting secukupnya)."
         </p>
       </div>
 
       <hr class="ed-rule mt-10" />
 
       <div class="mt-6 flex flex-wrap gap-x-8 gap-y-3 ed-meta" data-reveal>
-        <span>01 — Cerita</span>
-        <span>02 — Perspektif</span>
-        <span>03 — Keunikan</span>
-        <span>04 — Kebersamaan</span>
+        <span>01 — Cerita aneh-aneh</span>
+        <span>02 — Perspektif nyeleneh</span>
+        <span>03 — Keunikan (yang penting)</span>
+        <span>04 — Kebersamaan (tanpa paksaan)</span>
       </div>
     </div>
   </div>

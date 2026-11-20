@@ -3,37 +3,35 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/editorial/PageHero.astro';
 import CommunityValues from '../components/sections/CommunityValues.astro';
 import Label from '../components/ui/Label.astro';
-import Button from '../components/ui/Button.astro';
 import { MessageCircle, Mail, ArrowRight, Users, BookOpen, Camera, Sparkles } from '@lucide/astro';
 import { site } from '../data/site';
-import { members } from '../data/members';
 
-const title = 'Join Us';
+const title = 'Gabung';
 const description =
   'Bergabung dengan Sobat Dumpis — komunitas terbuka untuk siapa saja yang ingin berbagi cerita, belajar, dan menjadi diri sendiri.';
 
 const canDo = [
   {
     icon: BookOpen,
-    title: 'Share your story',
+    title: 'Bagikan ceritamu',
     description:
       'Tulis dan bagikan cerita, pengalaman, atau pengetahuanmu. Tidak harus panjang, yang penting jujur.',
   },
   {
     icon: Users,
-    title: 'Meet new people',
+    title: 'Kenali orang baru',
     description:
-      'Kenali individu dengan minat dan latar belakang berbeda. Percakapan kecil sering membuka pintu besar.',
+      'Temui individu dengan minat dan latar belakang berbeda. Percakapan kecil sering membuka pintu besar.',
   },
   {
     icon: Camera,
-    title: 'Capture moments',
+    title: 'Abadikan momen',
     description:
-      'Abadikan kegiatan, diskusi, dan kenangan bersama. Galeri komunitas tumbuh dari foto-foto spontan.',
+      'Rekam kegiatan, diskusi, dan kenangan bersama. Galeri komunitas tumbuh dari foto-foto spontan.',
   },
   {
     icon: Sparkles,
-    title: 'Grow together',
+    title: 'Tumbuh bersama',
     description:
       'Belajar hal baru, mencoba hal yang belum pernah dicoba, dan saling mendukung dalam prosesnya.',
   },
@@ -41,27 +39,27 @@ const canDo = [
 
 const expectations = [
   {
-    title: 'Respect each person',
+    title: 'Hormati setiap orang',
     description:
       'Setiap orang datang dengan latar belakang dan kecepatan belajarnya sendiri. Hormati itu.',
   },
   {
-    title: 'Share honestly',
+    title: 'Bagikan dengan jujur',
     description:
       'Tidak perlu tampil sempurna. Kejujuran lebih berharga daripada citra yang rapi.',
   },
   {
-    title: 'Stay curious',
+    title: 'Tetap ingin tahu',
     description:
       'Tanyakan, dengarkan, dan cobalah hal baru. Rasa ingin tahu adalah mata uang komunitas ini.',
   },
   {
-    title: 'Keep it warm',
+    title: 'Jaga kehangatan',
     description:
       'Ruang ini dibangun dari kebaikan kecil. Jaga agar tetap hangat, terbuka, dan aman bagi semua.',
   },
   {
-    title: 'No pressure',
+    title: 'Tanpa tekanan',
     description:
       'Tidak ada target posting, tidak ada kewajiban kehadiran. Datang dan pergi sesuai kemampuanmu.',
   },
@@ -70,7 +68,7 @@ const expectations = [
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
-  name: `Join ${site.name}`,
+  name: `Gabung ${site.name}`,
   description,
   url: new URL('/join', site.url).toString(),
 };
@@ -78,25 +76,26 @@ const jsonLd = {
 
 <BaseLayout title={title} description={description} jsonLd={jsonLd}>
   <PageHero
-    index="JOIN — 05"
-    label="BECOME A PART OF US"
-    title="THERE'S ALWAYS"
-    accent="ROOM FOR ONE MORE."
+    index="GABUNG — 05"
+    label="JADILAH BAGIAN DARI KAMI"
+    title="SELALU ADA"
+    accent="RUANG UNTUK SATU ORANG LAGI."
     description="Kalau kamu suka berbagi cerita, bertemu orang baru, belajar hal baru, atau sekadar menjadi diri sendiri, mungkin kamu akan cocok di sini."
   />
 
-  <!-- Who can join -->
+  <!-- Siapa yang bisa bergabung -->
   <section class="ed-section" aria-labelledby="who-title">
+    <span class="side-rail" aria-hidden="true">Siapa yang bisa bergabung</span>
     <div class="ed-container grid grid-cols-12 gap-x-6 gap-y-10">
       <div class="col-span-12 md:col-span-4">
-        <Label>02 — WHO CAN JOIN</Label>
-        <span class="giant-index mt-8 hidden md:block" aria-hidden="true">?</span>
+        <Label>02 — SIAPA YANG BISA BERGABUNG</Label>
+        <span class="giant-index mt-8 hidden lg:block" aria-hidden="true">?</span>
         <p class="ed-meta mt-8 max-w-[26ch]">
           Tidak ada persyaratan formal. Hanya niat baik dan rasa ingin tahu.
         </p>
       </div>
 
-      <div class="col-span-12 md:col-span-8">
+      <div class="col-span-12 md:col-span-7 md:col-start-6">
         <h2 id="who-title" class="ed-h2" data-split>
           SIAPA PUN<br />BOLEH DATANG.
         </h2>
@@ -117,12 +116,13 @@ const jsonLd = {
     </div>
   </section>
 
-  <!-- What members can do -->
+  <!-- Apa yang bisa dilakukan -->
   <section class="ed-section border-t border-stone" aria-labelledby="can-do-title">
+    <span class="side-rail" aria-hidden="true">Yang bisa dilakukan</span>
     <div class="ed-container">
       <div class="flex flex-wrap items-end justify-between gap-6">
         <div>
-          <Label>03 — WHAT YOU CAN DO</Label>
+          <Label>03 — YANG BISA KAMU LAKUKAN</Label>
           <h2 id="can-do-title" class="ed-h2 mt-4">
             BANYAK CARA<br />UNTUK TERLIBAT.
           </h2>
@@ -137,9 +137,9 @@ const jsonLd = {
           canDo.map((item, index) => {
             const Icon = item.icon;
             return (
-              <li class="border border-stone p-6">
+              <li class="tilt-parent border border-stone p-6" data-tilt="6">
                 <div class="flex items-center justify-between">
-                  <Icon size={22} strokeWidth={1.5} class="text-signal" aria-hidden="true" />
+                  <Icon size={22} stroke-width={1.5} class="text-signal" aria-hidden="true" />
                   <span class="ed-meta" aria-hidden="true">
                     0{index + 1}
                   </span>
@@ -154,24 +154,25 @@ const jsonLd = {
     </div>
   </section>
 
-  <!-- Expectations -->
+  <!-- Ekspektasi -->
   <section class="ed-section border-t border-stone" aria-labelledby="expectations-title">
+    <span class="side-rail" aria-hidden="true">Ekspektasi bersama</span>
     <div class="ed-container grid grid-cols-12 gap-x-6 gap-y-10">
       <div class="col-span-12 md:col-span-4">
-        <Label>04 — EXPECTATIONS</Label>
+        <Label>04 — EKSPEKTASI</Label>
         <h2
           id="expectations-title"
           class="mt-4 font-display text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.05]"
         >
           LIMA HAL YANG<br />KAMI JAGA.
         </h2>
-        <p class="ed-meta mt-6 max-w-[26ch]">
+        <p class="ed-meta mt-6 max-w-[28ch]">
           Bukan aturan kaku, melainkan kesepakatan lembut yang menjaga ruang ini tetap
           hangat.
         </p>
       </div>
 
-      <ol class="col-span-12 border-t border-ink md:col-span-8" data-reveal-group>
+      <ol class="col-span-12 border-t border-ink md:col-span-7 md:col-start-6" data-reveal-group>
         {
           expectations.map((item, index) => (
             <li class="ed-row">
@@ -185,15 +186,16 @@ const jsonLd = {
     </div>
   </section>
 
-  <CommunityValues indexLabel="05 — VALUES" title="SAME VALUES, NEW PEOPLE." />
+  <CommunityValues indexLabel="05 — NILAI" title="NILAI YANG SAMA, ORANG BARU." />
 
-  <!-- How to get involved -->
+  <!-- Cara terlibat -->
   <section class="ed-section border-t border-stone bg-ink text-paper" aria-labelledby="how-title">
+    <span class="side-rail" style="color: rgba(245,243,237,0.35)" aria-hidden="true">Cara terlibat</span>
     <div class="ed-container">
       <div class="flex flex-wrap items-center justify-between gap-4 border-b border-paper/20 pb-4">
-        <Label tone="paper">06 — HOW TO GET INVOLVED</Label>
+        <Label tone="paper">06 — CARA TERLIBAT</Label>
         <span class="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-paper/60">
-          Step by step
+          Langkah demi langkah
         </span>
       </div>
 
@@ -201,17 +203,17 @@ const jsonLd = {
         <div class="col-span-12 lg:col-span-5">
           <h2 id="how-title" class="ed-h2" data-split>
             TIGA LANGKAH.<br />TANPA<br />
-            <span class="text-signal">FORMULIR.</span>
+            <span class="text-signal ed-accent-serif">FORMULIR.</span>
           </h2>
         </div>
-        <div class="col-span-12 lg:col-span-7" data-reveal-group>
+        <div class="col-span-12 lg:col-span-6 lg:col-start-7" data-reveal-group>
           <ol class="space-y-8">
             <li class="flex gap-6 border-b border-paper/15 pb-8">
               <span class="font-display text-3xl font-bold text-signal">01</span>
               <div>
                 <h3 class="font-display text-xl font-bold">Kirim pesan</h3>
                 <p class="mt-2 text-sm leading-relaxed text-stone">
-                  Hubungi kami lewat email atau salah satu sosial media. Perkenalkan
+                  Hubungi kami lewat email atau salah satu media sosial. Perkenalkan
                   dirimu singkat-singkat saja.
                 </p>
               </div>
@@ -242,17 +244,18 @@ const jsonLd = {
     </div>
   </section>
 
-  <!-- Contact -->
+  <!-- Kontak -->
   <section class="ed-section" aria-labelledby="contact-title">
+    <span class="side-rail" aria-hidden="true">Hubungi kami</span>
     <div class="ed-container">
       <div class="grid grid-cols-12 gap-x-6 gap-y-10">
         <div class="col-span-12 md:col-span-5">
-          <Label>07 — REACH OUT</Label>
+          <Label>07 — HUBUNGI KAMI</Label>
           <h2 id="contact-title" class="ed-h2 mt-4">
             KATAKAN<br />HALO.
           </h2>
           <p class="ed-body mt-6 max-w-sm">
-            Email adalah cara paling mudah. Sosial media kami juga terbuka untuk
+            Email adalah cara paling mudah. Media sosial kami juga terbuka untuk
             pesan langsung.
           </p>
         </div>
@@ -264,13 +267,13 @@ const jsonLd = {
               class="flex items-center justify-between gap-4 border-b border-stone py-6 transition-colors hover:text-signal"
             >
               <div class="flex items-center gap-4">
-                <Mail size={20} strokeWidth={1.5} class="text-signal" aria-hidden="true" />
+                <Mail size={20} stroke-width={1.5} class="text-signal" aria-hidden="true" />
                 <div>
                   <p class="ed-meta">Email</p>
                   <p class="mt-1 font-display text-xl font-bold">{site.contactEmail}</p>
                 </div>
               </div>
-              <ArrowRight size={18} strokeWidth={1.5} aria-hidden="true" />
+              <ArrowRight size={18} stroke-width={1.5} aria-hidden="true" />
             </a>
 
             {
@@ -282,37 +285,38 @@ const jsonLd = {
                   class="flex items-center justify-between gap-4 border-b border-stone py-6 transition-colors hover:text-signal"
                 >
                   <div class="flex items-center gap-4">
-                    <MessageCircle size={20} strokeWidth={1.5} class="text-signal" aria-hidden="true" />
+                    <MessageCircle size={20} stroke-width={1.5} class="text-signal" aria-hidden="true" />
                     <div>
                       <p class="ed-meta">{social.platform}</p>
                       <p class="mt-1 font-display text-xl font-bold">{social.platform}</p>
                     </div>
                   </div>
-                  <ArrowRight size={18} strokeWidth={1.5} aria-hidden="true" />
+                  <ArrowRight size={18} stroke-width={1.5} aria-hidden="true" />
                 </a>
               ))
             }
           </div>
 
           <p class="ed-meta mt-6">
-            Social links are configurable placeholders. Replace the URLs in
-            src/data/site.ts when the real accounts are ready.
+            Tautan sosial adalah placeholder yang bisa dikonfigurasi. Ganti URL-nya di
+            src/data/site.ts ketika akun asli siap.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="ed-manifesto-banner" aria-labelledby="join-manifesto-title">
+  <section class="ed-manifesto-banner band-tall" aria-labelledby="join-manifesto-title">
+    <span class="side-rail" style="color: rgba(245,243,237,0.55)" aria-hidden="true">Penutup</span>
     <div class="ed-container">
-      <p id="join-manifesto-title" class="ed-label ed-label--paper">08 — ONE LAST THING</p>
+      <p id="join-manifesto-title" class="ed-label ed-label--paper">08 — SATU HAL TERAKHIR</p>
       <h2 class="ed-h2 mt-4" data-split>
         TIDAK HARUS MENJADI<br />SIAPA-SIAPA<br />
         <span class="text-ink">UNTUK MENJADI BAGIAN.</span>
       </h2>
       <p class="ed-value ed-value--paper mt-8 max-w-2xl">
         Sobat Dumpis bukan tentang kesempurnaan. Ia tentang hadir, berbagi, dan
-        tumbuh bersama — sedikit random, banyak makna.
+        tumbuh bersama — sedikit acak, banyak makna.
       </p>
     </div>
   </section>

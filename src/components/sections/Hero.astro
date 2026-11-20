@@ -3,35 +3,48 @@ import Label from '../ui/Label.astro';
 import Button from '../ui/Button.astro';
 ---
 
-<section class="ed-section relative overflow-hidden" aria-labelledby="hero-title" data-hero>
-  <div class="ed-container">
+<section
+  class="ed-section hero-fullscreen relative overflow-hidden perspective-stage"
+  aria-labelledby="hero-title"
+  data-hero
+>
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="grid-floor" aria-hidden="true"></div>
+
+  <!-- Bentuk 3D melayang -->
+  <div class="shape-3d shape-3d--ring hidden lg:block" data-depth="26" style="width:190px;height:190px;top:16%;right:13%;"></div>
+  <div class="shape-3d shape-3d--disc hidden lg:block" data-depth="34" style="width:58px;height:58px;top:62%;right:27%;"></div>
+  <div class="shape-3d shape-3d--square hidden lg:block" data-depth="18" style="width:74px;height:74px;bottom:14%;left:7%;"></div>
+  <div class="shape-3d shape-3d--outline hidden lg:block" data-depth="30" style="width:124px;height:124px;top:20%;left:19%;"></div>
+
+  <div class="ed-container relative">
     <div class="flex flex-wrap items-center justify-between gap-3 border-b border-ink pb-4">
-      <Label>INDEPENDENT COMMUNITY.</Label>
-      <span class="ed-meta">EST. 2026 — OPEN TO EVERYONE.</span>
+      <Label>KOMUNITAS INDEPENDEN (TAPI GAK SERIUS-SERIUS AMAT).</Label>
+      <span class="ed-meta">DIRINTIS 2026 — TERBUKA UNTUK SEMUA YANG MAU NYAMPE.</span>
     </div>
 
-    <div class="mt-10 grid grid-cols-12 gap-x-6 gap-y-12 md:mt-14">
-      <div class="col-span-12 lg:col-span-8">
-        <h1 id="hero-title" class="ed-h1" data-split>
-          NOT EVERYONE IS THE SAME.
-          <span class="ed-h1-accent">THAT'S THE POINT.</span>
+    <div class="mt-8 grid grid-cols-12 gap-x-6 gap-y-12 md:mt-12">
+      <div class="col-span-12 lg:col-span-9">
+        <h1 id="hero-title" class="ed-h1 wobble-in" data-split>
+          TIDAK SEMUA ORANG SAMA.
+          <span class="ed-h1-accent ed-accent-serif">ITULAH INTINYA (DAN KITA SUKA).</span>
         </h1>
       </div>
 
-      <div class="col-span-12 flex flex-col gap-8 lg:col-span-4 lg:border-l lg:border-stone lg:pl-6">
+      <div class="col-span-12 flex flex-col gap-8 lg:col-span-3 lg:border-l lg:border-stone lg:pl-6">
         <div data-reveal>
-          <span class="giant-index" aria-hidden="true">01</span>
-          <p class="ed-value mt-5">A little order in a beautifully random world.</p>
+          <span class="giant-index hidden lg:block" aria-hidden="true">01</span>
+          <p class="ed-value mt-5">Sedikit keteraturan di dunia yang indah dan penuh keacakan (plus meme).</p>
         </div>
 
-        <div class="bg-signal p-6 text-paper" data-reveal>
-          <p class="font-mono text-[0.6875rem] uppercase tracking-[0.25em]">Community note</p>
+        <div class="tilt-parent depth-card bg-signal p-6 text-paper" data-tilt="7">
+          <p class="font-mono text-[0.6875rem] uppercase tracking-[0.25em]">Catatan komunitas</p>
           <p class="mt-4 font-display text-2xl font-bold leading-[1.05]">
-            DIFFERENT PEOPLE.<br />ONE COMMON SPACE.
+            ORANG BERBEDA.<br />SATU RUANG YANG SAMA.<br /> (GAK ADA YANG DIBULLY.)
           </p>
           <span class="mt-6 block h-px w-10 bg-paper/60" aria-hidden="true"></span>
           <p class="mt-3 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-paper/80">
-            Everyone is welcome here.
+            Semua orang diterima, termasuk yang sok sibuk.
           </p>
         </div>
       </div>
@@ -41,21 +54,29 @@ import Button from '../ui/Button.astro';
       <div class="col-span-12 md:col-span-7 lg:col-span-6">
         <p class="ed-body max-w-xl" data-reveal>
           Tempat bertemunya berbagai cerita, pemikiran, karakter, dan manusia-manusia
-          random. Kami percaya bahwa setiap orang punya cerita yang layak didengar.
+          acak. Kami percaya bahwa setiap orang punya cerita yang layak didengar
+          (bahkan yang ceritanya cuma "tadi makan apa").
         </p>
         <div class="mt-8 flex flex-wrap gap-4" data-reveal>
-          <Button href="/people">Meet the People</Button>
-          <Button href="/stories" variant="outline">Explore Our Stories</Button>
+          <Button href="/people">Kenali Orang-Orangnya (Jangan Malu)</Button>
+          <Button href="/stories" variant="outline">Jelajahi Cerita Kami (Baca Dikit)</Button>
         </div>
       </div>
 
       <div class="col-span-12 md:col-span-4 md:col-start-9 lg:col-span-4 lg:col-start-9">
         <ul class="ed-labels" data-reveal>
-          <li><Label>OPEN TO EVERYONE.</Label></li>
-          <li><Label tone="ink-muted">ESTABLISHED 2026.</Label></li>
-          <li><Label tone="ink-muted">A COMMUNITY, NOT A TEMPLATE.</Label></li>
+          <li><Label>TERBUKA UNTUK SEMUA.</Label></li>
+          <li><Label tone="ink-muted">DIRINTIS 2026.</Label></li>
+          <li><Label tone="ink-muted">KOMUNITAS, BUKAN SEKTE.</Label></li>
         </ul>
       </div>
     </div>
+
+    <div class="mt-16 hidden items-center gap-4 md:flex" aria-hidden="true" data-reveal>
+      <span class="scroll-cue"></span>
+      <span class="ed-meta">Gulir ke bawah (pelan-pelan aja)</span>
+    </div>
   </div>
+
+  <span class="side-rail" aria-hidden="true">Sobat Dumpis — Komunitas Independen — 2026 — Gabut Tapi Serius</span>
 </section>

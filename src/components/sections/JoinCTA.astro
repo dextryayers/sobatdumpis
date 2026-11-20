@@ -3,31 +3,32 @@ import Label from '../ui/Label.astro';
 import Button from '../ui/Button.astro';
 ---
 
-<section class="ed-section bg-ink text-paper" id="join-cta" aria-labelledby="join-title">
+<section class="ed-section bg-ink text-paper band-tall" id="join-cta" aria-labelledby="join-title">
+  <span class="side-rail" style="color: rgba(245,243,237,0.35)" aria-hidden="true">Gabung komunitas</span>
   <div class="ed-container">
     <div class="flex flex-wrap items-center justify-between gap-4 border-b border-paper/20 pb-4">
-      <Label tone="paper">08 — JOIN THE COMMUNITY</Label>
+      <Label tone="paper">08 — GABUNG KOMUNITAS</Label>
       <span class="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-paper/60">
-        Always open
+        Selalu terbuka
       </span>
     </div>
 
     <div class="mt-10 grid grid-cols-12 gap-x-6 gap-y-10">
       <div class="col-span-12 lg:col-span-8">
         <h2 id="join-title" class="ed-h2" data-split>
-          THERE'S ALWAYS<br />ROOM FOR<br />
-          <span class="text-signal">ONE MORE.</span>
+          SELALU ADA<br />RUANG UNTUK<br />
+          <span class="text-signal ed-accent-serif">SATU ORANG LAGI.</span>
         </h2>
       </div>
       <div class="col-span-12 flex flex-col justify-between gap-10 lg:col-span-4">
-        <p class="ed-body ed-body--stone max-w-md" data-reveal>
+        <p class="ed-body ed-body--stone max-w-md">
           Kalau kamu suka berbagi cerita, bertemu orang baru, belajar hal baru, atau
           sekadar menjadi diri sendiri, mungkin kamu akan cocok di sini.
         </p>
         <div data-reveal>
-          <Button href="/join">Become a Part of Us</Button>
+          <Button href="/join">Jadilah Bagian dari Kami</Button>
           <p class="mt-6 font-mono text-[0.6875rem] uppercase tracking-[0.18em] text-paper/60">
-            No forms. No algorithms. Just people.
+            Tanpa formulir. Tanpa algoritma. Hanya manusia.
           </p>
         </div>
       </div>

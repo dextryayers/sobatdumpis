@@ -7,9 +7,9 @@ import Label from '../components/ui/Label.astro';
 import Button from '../components/ui/Button.astro';
 import { site } from '../data/site';
 
-const title = 'About';
+const title = 'Tentang';
 const description =
-  'Kenali Sobat Dumpis: komunitas independen untuk orang-orang random yang percaya bahwa setiap cerita layak didengar.';
+  'Kenali Sobat Dumpis: komunitas independen untuk orang-orang acak yang percaya bahwa setiap cerita layak didengar.';
 
 const reasons = [
   {
@@ -20,7 +20,7 @@ const reasons = [
   {
     title: 'Percakapan yang melampaui basa-basi',
     description:
-      'Di sini, obrolan bisa dimulai dari hal kecil lalu berakhir pada pertanyaan besar. Tidak ada topik yang terlalu random.',
+      'Di sini, obrolan bisa dimulai dari hal kecil lalu berakhir pada pertanyaan besar. Tidak ada topik yang terlalu acak.',
   },
   {
     title: 'Cerita yang tidak selalu punya panggung',
@@ -41,7 +41,7 @@ const missions = [
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'AboutPage',
-  name: `About ${site.name}`,
+  name: `Tentang ${site.name}`,
   description,
   url: new URL('/about', site.url).toString(),
   mainEntity: {
@@ -55,40 +55,41 @@ const jsonLd = {
 
 <BaseLayout title={title} description={description} jsonLd={jsonLd}>
   <PageHero
-    index="ABOUT — 01"
-    label="ABOUT SOBAT DUMPIS"
-    title="A LITTLE RANDOM."
-    accent="A LOT OF MEANING."
+    index="TENTANG — 01"
+    label="TENTANG SOBAT DUMPIS"
+    title="SEDIKIT ACAK."
+    accent="BANYAK MAKNA."
     description="Kami adalah komunitas independen yang tumbuh dari percakapan kecil, rasa ingin tahu, dan keyakinan bahwa tidak semua hal baik harus direncanakan."
   />
 
-  <!-- Our Story -->
+  <!-- Cerita kami -->
   <section class="ed-section" aria-labelledby="story-title">
+    <span class="side-rail" aria-hidden="true">Cerita kami</span>
     <div class="ed-container grid grid-cols-12 gap-x-6 gap-y-10">
       <div class="col-span-12 md:col-span-4">
-        <Label>02 — OUR STORY</Label>
-        <span class="giant-index mt-8 hidden md:block" aria-hidden="true">02</span>
+        <Label>02 — CERITA KAMI</Label>
+        <span class="giant-index mt-8 hidden lg:block" aria-hidden="true">02</span>
         <dl class="mt-8 border-t border-ink">
           <div class="flex justify-between gap-4 border-b border-stone py-3">
-            <dt class="ed-meta">Established</dt>
+            <dt class="ed-meta">Dirintis</dt>
             <dd class="ed-meta">{site.establishedYear}</dd>
           </div>
           <div class="flex justify-between gap-4 border-b border-stone py-3">
             <dt class="ed-meta">Status</dt>
-            <dd class="ed-meta">Independent</dd>
+            <dd class="ed-meta">Independen</dd>
           </div>
           <div class="flex justify-between gap-4 border-b border-stone py-3">
-            <dt class="ed-meta">Membership</dt>
-            <dd class="ed-meta">Open to everyone</dd>
+            <dt class="ed-meta">Keanggotaan</dt>
+            <dd class="ed-meta">Terbuka untuk semua</dd>
           </div>
           <div class="flex justify-between gap-4 border-b border-stone py-3">
-            <dt class="ed-meta">Base</dt>
+            <dt class="ed-meta">Asal</dt>
             <dd class="ed-meta">Indonesia</dd>
           </div>
         </dl>
       </div>
 
-      <div class="col-span-12 md:col-span-8">
+      <div class="col-span-12 md:col-span-7 md:col-start-6">
         <h2 id="story-title" class="ed-h2" data-split>
           KAMI MULAI DARI<br />HAL-HAL KECIL.
         </h2>
@@ -104,7 +105,7 @@ const jsonLd = {
             Kami bukan organisasi besar dan tidak ingin menjadi mesin konten. Kami
             hanya sekumpulan individu dengan minat yang berbeda-beda yang memutuskan
             untuk tetap terhubung, berbagi, dan membuat sesuatu bersama — sesekali
-            serius, lebih sering random.
+            serius, lebih sering acak.
           </p>
         </div>
 
@@ -118,11 +119,12 @@ const jsonLd = {
     </div>
   </section>
 
-  <!-- Why we exist -->
+  <!-- Mengapa kami ada -->
   <section class="ed-section border-t border-stone" aria-labelledby="why-title">
+    <span class="side-rail" aria-hidden="true">Mengapa kami ada</span>
     <div class="ed-container grid grid-cols-12 gap-x-6 gap-y-10">
       <div class="col-span-12 md:col-span-4">
-        <Label>03 — WHY WE EXIST</Label>
+        <Label>03 — MENGAPA KAMI ADA</Label>
         <h2
           id="why-title"
           class="mt-4 font-display text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.05]"
@@ -131,7 +133,7 @@ const jsonLd = {
         </h2>
       </div>
 
-      <ol class="col-span-12 border-t border-ink md:col-span-8" data-reveal-group>
+      <ol class="col-span-12 border-t border-ink md:col-span-7 md:col-start-6" data-reveal-group>
         {
           reasons.map((reason, i) => (
             <li class="ed-row">
@@ -145,16 +147,16 @@ const jsonLd = {
     </div>
   </section>
 
-  <!-- Vision -->
-  <section class="border-y border-stone bg-paper-dark" aria-labelledby="vision-title">
-    <div class="ed-container py-20 md:py-28">
+  <!-- Visi -->
+  <section class="border-y border-stone bg-paper-dark band-tall" aria-labelledby="vision-title">
+    <div class="ed-container">
       <div class="grid grid-cols-12 gap-x-6 gap-y-8">
         <div class="col-span-12 md:col-span-3">
-          <Label>04 — VISION</Label>
-          <p class="ed-meta mt-4">Where we are going</p>
+          <Label>04 — VISI</Label>
+          <p class="ed-meta mt-4">Ke mana arah kami</p>
         </div>
-        <div class="col-span-12 md:col-span-9">
-          <h2 id="vision-title" class="sr-only">Vision</h2>
+        <div class="col-span-12 md:col-span-8 md:col-start-5">
+          <h2 id="vision-title" class="sr-only">Visi</h2>
           <p class="ed-statement" data-reveal>
             Menjadi ruang komunitas yang terbuka, hangat, dan inklusif bagi siapa saja
             untuk terhubung, berbagi cerita, bertukar pengetahuan, serta menciptakan
@@ -165,28 +167,30 @@ const jsonLd = {
     </div>
   </section>
 
-  <!-- Mission -->
+  <!-- Misi -->
   <section class="ed-section" aria-labelledby="mission-title">
+    <span class="side-rail" aria-hidden="true">Misi kami</span>
     <div class="ed-container grid grid-cols-12 gap-x-6 gap-y-10">
       <div class="col-span-12 md:col-span-4">
-        <Label>05 — MISSION</Label>
+        <Label>05 — MISI</Label>
         <h2
           id="mission-title"
           class="mt-4 font-display text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.05]"
         >
           ENAM HAL YANG<br />KAMI JAGA.
         </h2>
-        <p class="ed-meta mt-6 max-w-[26ch]">
+        <p class="ed-meta mt-6 max-w-[28ch]">
           Bukan target yang harus dicentang, melainkan arah yang kami ingat.
         </p>
       </div>
 
-      <ol class="col-span-12 border-t border-ink md:col-span-8" data-reveal-group>
+      <ol class="col-span-12 border-t border-ink md:col-span-7 md:col-start-6" data-reveal-group>
         {
           missions.map((mission, i) => (
-            <li class="ed-row md:grid-cols-[4rem_minmax(0,1fr)]">
+            <li class="ed-row">
               <span class="ed-row-index" aria-hidden="true">0{i + 1}</span>
-              <p class="ed-row-text ed-row-text--plain">
+              <h3 class="ed-row-title">Poin {i + 1}</h3>
+              <p class="ed-row-text !font-body !not-italic !text-base !text-ink">
                 {mission}
               </p>
             </li>
@@ -196,18 +200,19 @@ const jsonLd = {
     </div>
   </section>
 
-  <CommunityValues indexLabel="06 — CORE VALUES" title="FIVE THINGS WE KEEP." />
+  <CommunityValues indexLabel="06 — NILAI INTI" title="LIMA HAL YANG KAMI JAGA." />
 
   <CommunityManifesto />
 
-  <!-- Philosophy -->
+  <!-- Filosofi -->
   <section class="ed-section" aria-labelledby="philosophy-title">
+    <span class="side-rail" aria-hidden="true">Filosofi</span>
     <div class="ed-container grid grid-cols-12 gap-x-6 gap-y-10">
       <div class="col-span-12 md:col-span-4">
-        <Label>08 — OUR PHILOSOPHY</Label>
-        <p class="ed-meta mt-4">How we think about this space</p>
+        <Label>08 — FILOSOFI KAMI</Label>
+        <p class="ed-meta mt-4">Cara kami memandang ruang ini</p>
       </div>
-      <div class="col-span-12 md:col-span-8">
+      <div class="col-span-12 md:col-span-7 md:col-start-6">
         <h2 id="philosophy-title" class="ed-h2" data-split>
           ORANG DULU.<br />FORMAT KEMUDIAN.
         </h2>
@@ -224,7 +229,7 @@ const jsonLd = {
           </p>
         </div>
         <div class="mt-10" data-reveal>
-          <Button href="/join">Become a Part of Us</Button>
+          <Button href="/join">Jadilah Bagian dari Kami</Button>
         </div>
       </div>
     </div>

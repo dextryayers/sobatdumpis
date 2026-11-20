@@ -10,6 +10,7 @@ const { variant = 'primary', class: classList, ...rest } = Astro.props;
 
 <a
   class={`btn ${variant === 'primary' ? 'btn-primary' : 'btn-outline'} ${classList ?? ''}`.trim()}
+  data-magnetic={variant === 'primary' ? '' : undefined}
   {...rest}
 >
   <slot />
