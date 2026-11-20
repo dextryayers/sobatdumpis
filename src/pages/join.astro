@@ -1,0 +1,319 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/editorial/PageHero.astro';
+import CommunityValues from '../components/sections/CommunityValues.astro';
+import Label from '../components/ui/Label.astro';
+import Button from '../components/ui/Button.astro';
+import { MessageCircle, Mail, ArrowRight, Users, BookOpen, Camera, Sparkles } from '@lucide/astro';
+import { site } from '../data/site';
+import { members } from '../data/members';
+
+const title = 'Join Us';
+const description =
+  'Bergabung dengan Sobat Dumpis — komunitas terbuka untuk siapa saja yang ingin berbagi cerita, belajar, dan menjadi diri sendiri.';
+
+const canDo = [
+  {
+    icon: BookOpen,
+    title: 'Share your story',
+    description:
+      'Tulis dan bagikan cerita, pengalaman, atau pengetahuanmu. Tidak harus panjang, yang penting jujur.',
+  },
+  {
+    icon: Users,
+    title: 'Meet new people',
+    description:
+      'Kenali individu dengan minat dan latar belakang berbeda. Percakapan kecil sering membuka pintu besar.',
+  },
+  {
+    icon: Camera,
+    title: 'Capture moments',
+    description:
+      'Abadikan kegiatan, diskusi, dan kenangan bersama. Galeri komunitas tumbuh dari foto-foto spontan.',
+  },
+  {
+    icon: Sparkles,
+    title: 'Grow together',
+    description:
+      'Belajar hal baru, mencoba hal yang belum pernah dicoba, dan saling mendukung dalam prosesnya.',
+  },
+];
+
+const expectations = [
+  {
+    title: 'Respect each person',
+    description:
+      'Setiap orang datang dengan latar belakang dan kecepatan belajarnya sendiri. Hormati itu.',
+  },
+  {
+    title: 'Share honestly',
+    description:
+      'Tidak perlu tampil sempurna. Kejujuran lebih berharga daripada citra yang rapi.',
+  },
+  {
+    title: 'Stay curious',
+    description:
+      'Tanyakan, dengarkan, dan cobalah hal baru. Rasa ingin tahu adalah mata uang komunitas ini.',
+  },
+  {
+    title: 'Keep it warm',
+    description:
+      'Ruang ini dibangun dari kebaikan kecil. Jaga agar tetap hangat, terbuka, dan aman bagi semua.',
+  },
+  {
+    title: 'No pressure',
+    description:
+      'Tidak ada target posting, tidak ada kewajiban kehadiran. Datang dan pergi sesuai kemampuanmu.',
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: `Join ${site.name}`,
+  description,
+  url: new URL('/join', site.url).toString(),
+};
+---
+
+<BaseLayout title={title} description={description} jsonLd={jsonLd}>
+  <PageHero
+    index="JOIN — 05"
+    label="BECOME A PART OF US"
+    title="THERE'S ALWAYS"
+    accent="ROOM FOR ONE MORE."
+    description="Kalau kamu suka berbagi cerita, bertemu orang baru, belajar hal baru, atau sekadar menjadi diri sendiri, mungkin kamu akan cocok di sini."
+  />
+
+  <!-- Who can join -->
+  <section class="ed-section" aria-labelledby="who-title">
+    <div class="ed-container grid grid-cols-12 gap-x-6 gap-y-10">
+      <div class="col-span-12 md:col-span-4">
+        <Label>02 — WHO CAN JOIN</Label>
+        <span class="giant-index mt-8 hidden md:block" aria-hidden="true">?</span>
+        <p class="ed-meta mt-8 max-w-[26ch]">
+          Tidak ada persyaratan formal. Hanya niat baik dan rasa ingin tahu.
+        </p>
+      </div>
+
+      <div class="col-span-12 md:col-span-8">
+        <h2 id="who-title" class="ed-h2" data-split>
+          SIAPA PUN<br />BOLEH DATANG.
+        </h2>
+        <div class="mt-8 space-y-5" data-reveal>
+          <p class="ed-body max-w-2xl">
+            Sobat Dumpis tidak memilih berdasarkan keahlian, profesi, atau latar
+            belakang. Yang kami cari sederhana: orang yang ingin terhubung, berbagi,
+            dan belajar bersama. Kamu bisa seorang developer, mahasiswa, seniman,
+            ibu rumah tangga, atau siapa pun — selama kamu ingin hadir.
+          </p>
+          <p class="ed-body max-w-2xl">
+            Tidak ada biaya, tidak ada formulir pendaftaran, tidak ada hierarki.
+            Kamu cukup menghubungi kami melalui salah satu kanal di bawah, lalu
+            mulai terlibat sesuai kenyamananmu.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What members can do -->
+  <section class="ed-section border-t border-stone" aria-labelledby="can-do-title">
+    <div class="ed-container">
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <div>
+          <Label>03 — WHAT YOU CAN DO</Label>
+          <h2 id="can-do-title" class="ed-h2 mt-4">
+            BANYAK CARA<br />UNTUK TERLIBAT.
+          </h2>
+        </div>
+        <p class="ed-meta max-w-xs">
+          Pilih apa yang paling terasa natural untukmu. Tidak semuanya harus dilakukan.
+        </p>
+      </div>
+
+      <ul class="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4" data-reveal-group>
+        {
+          canDo.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <li class="border border-stone p-6">
+                <div class="flex items-center justify-between">
+                  <Icon size={22} strokeWidth={1.5} class="text-signal" aria-hidden="true" />
+                  <span class="ed-meta" aria-hidden="true">
+                    0{index + 1}
+                  </span>
+                </div>
+                <h3 class="mt-6 font-display text-xl font-bold leading-tight">{item.title}</h3>
+                <p class="mt-3 text-sm leading-relaxed text-ink-muted">{item.description}</p>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Expectations -->
+  <section class="ed-section border-t border-stone" aria-labelledby="expectations-title">
+    <div class="ed-container grid grid-cols-12 gap-x-6 gap-y-10">
+      <div class="col-span-12 md:col-span-4">
+        <Label>04 — EXPECTATIONS</Label>
+        <h2
+          id="expectations-title"
+          class="mt-4 font-display text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.05]"
+        >
+          LIMA HAL YANG<br />KAMI JAGA.
+        </h2>
+        <p class="ed-meta mt-6 max-w-[26ch]">
+          Bukan aturan kaku, melainkan kesepakatan lembut yang menjaga ruang ini tetap
+          hangat.
+        </p>
+      </div>
+
+      <ol class="col-span-12 border-t border-ink md:col-span-8" data-reveal-group>
+        {
+          expectations.map((item, index) => (
+            <li class="ed-row">
+              <span class="ed-row-index" aria-hidden="true">0{index + 1}</span>
+              <h3 class="ed-row-title">{item.title}</h3>
+              <p class="ed-row-text">{item.description}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <CommunityValues indexLabel="05 — VALUES" title="SAME VALUES, NEW PEOPLE." />
+
+  <!-- How to get involved -->
+  <section class="ed-section border-t border-stone bg-ink text-paper" aria-labelledby="how-title">
+    <div class="ed-container">
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-paper/20 pb-4">
+        <Label tone="paper">06 — HOW TO GET INVOLVED</Label>
+        <span class="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-paper/60">
+          Step by step
+        </span>
+      </div>
+
+      <div class="mt-10 grid grid-cols-12 gap-x-6 gap-y-10">
+        <div class="col-span-12 lg:col-span-5">
+          <h2 id="how-title" class="ed-h2" data-split>
+            TIGA LANGKAH.<br />TANPA<br />
+            <span class="text-signal">FORMULIR.</span>
+          </h2>
+        </div>
+        <div class="col-span-12 lg:col-span-7" data-reveal-group>
+          <ol class="space-y-8">
+            <li class="flex gap-6 border-b border-paper/15 pb-8">
+              <span class="font-display text-3xl font-bold text-signal">01</span>
+              <div>
+                <h3 class="font-display text-xl font-bold">Kirim pesan</h3>
+                <p class="mt-2 text-sm leading-relaxed text-stone">
+                  Hubungi kami lewat email atau salah satu sosial media. Perkenalkan
+                  dirimu singkat-singkat saja.
+                </p>
+              </div>
+            </li>
+            <li class="flex gap-6 border-b border-paper/15 pb-8">
+              <span class="font-display text-3xl font-bold text-signal">02</span>
+              <div>
+                <h3 class="font-display text-xl font-bold">Mulai ngobrol</h3>
+                <p class="mt-2 text-sm leading-relaxed text-stone">
+                  Kami akan membalas dan mengajakmu ke percakapan yang sedang
+                  berlangsung. Tidak ada wawancara, tidak ada tes.
+                </p>
+              </div>
+            </li>
+            <li class="flex gap-6">
+              <span class="font-display text-3xl font-bold text-signal">03</span>
+              <div>
+                <h3 class="font-display text-xl font-bold">Ikut sebisa kamu</h3>
+                <p class="mt-2 text-sm leading-relaxed text-stone">
+                  Berbagi cerita, hadir di diskusi, atau sekadar menyimak. Semua
+                  kontribusi berarti.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="ed-section" aria-labelledby="contact-title">
+    <div class="ed-container">
+      <div class="grid grid-cols-12 gap-x-6 gap-y-10">
+        <div class="col-span-12 md:col-span-5">
+          <Label>07 — REACH OUT</Label>
+          <h2 id="contact-title" class="ed-h2 mt-4">
+            KATAKAN<br />HALO.
+          </h2>
+          <p class="ed-body mt-6 max-w-sm">
+            Email adalah cara paling mudah. Sosial media kami juga terbuka untuk
+            pesan langsung.
+          </p>
+        </div>
+
+        <div class="col-span-12 md:col-span-7">
+          <div class="border-t border-ink">
+            <a
+              href={`mailto:${site.contactEmail}`}
+              class="flex items-center justify-between gap-4 border-b border-stone py-6 transition-colors hover:text-signal"
+            >
+              <div class="flex items-center gap-4">
+                <Mail size={20} strokeWidth={1.5} class="text-signal" aria-hidden="true" />
+                <div>
+                  <p class="ed-meta">Email</p>
+                  <p class="mt-1 font-display text-xl font-bold">{site.contactEmail}</p>
+                </div>
+              </div>
+              <ArrowRight size={18} strokeWidth={1.5} aria-hidden="true" />
+            </a>
+
+            {
+              site.socials.map((social) => (
+                <a
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center justify-between gap-4 border-b border-stone py-6 transition-colors hover:text-signal"
+                >
+                  <div class="flex items-center gap-4">
+                    <MessageCircle size={20} strokeWidth={1.5} class="text-signal" aria-hidden="true" />
+                    <div>
+                      <p class="ed-meta">{social.platform}</p>
+                      <p class="mt-1 font-display text-xl font-bold">{social.platform}</p>
+                    </div>
+                  </div>
+                  <ArrowRight size={18} strokeWidth={1.5} aria-hidden="true" />
+                </a>
+              ))
+            }
+          </div>
+
+          <p class="ed-meta mt-6">
+            Social links are configurable placeholders. Replace the URLs in
+            src/data/site.ts when the real accounts are ready.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ed-manifesto-banner" aria-labelledby="join-manifesto-title">
+    <div class="ed-container">
+      <p id="join-manifesto-title" class="ed-label ed-label--paper">08 — ONE LAST THING</p>
+      <h2 class="ed-h2 mt-4" data-split>
+        TIDAK HARUS MENJADI<br />SIAPA-SIAPA<br />
+        <span class="text-ink">UNTUK MENJADI BAGIAN.</span>
+      </h2>
+      <p class="ed-value ed-value--paper mt-8 max-w-2xl">
+        Sobat Dumpis bukan tentang kesempurnaan. Ia tentang hadir, berbagi, dan
+        tumbuh bersama — sedikit random, banyak makna.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

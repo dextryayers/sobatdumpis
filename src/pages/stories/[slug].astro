@@ -1,0 +1,142 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Label from '../../components/ui/Label.astro';
+import Button from '../../components/ui/Button.astro';
+import StoryCard from '../../components/editorial/StoryCard.astro';
+import { getCollection, render } from 'astro:content';
+import { STORY_CATEGORY_LABELS } from '../../data/storyCategories';
+import { formatDateLong, formatDateShort, formatISODate, estimateReadingTime } from '../../utils/format';
+import { site } from '../../data/site';
+
+export async function getStaticPaths() {
+  const stories = await getCollection('stories');
+  return stories.map((story) => ({
+    params: { slug: story.id },
+    props: { story },
+  }));
+}
+
+const { story } = Astro.props;
+const { Content } = await render(story);
+const categoryLabel = STORY_CATEGORY_LABELS[story.data.category];
+
+const related = (await getCollection('stories'))
+  .filter((candidate) => candidate.id !== story.id)
+  .sort((a, b) => {
+    const sameCatA = a.data.category === story.data.category ? 0 : 1;
+    const sameCatB = b.data.category === story.data.category ? 0 : 1;
+    if (sameCatA !== sameCatB) return sameCatA - sameCatB;
+    return b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf();
+  })
+  .slice(0, 3);
+
+const readingTime = story.data.readingTime ?? estimateReadingTime(story.body);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: story.data.title,
+  description: story.data.excerpt,
+  datePublished: formatISODate(story.data.publishedDate),
+  author: { '@type': 'Person', name: story.data.author },
+  publisher: { '@type': 'Organization', name: 'Sobat Dumpis', url: site.url },
+  mainEntityOfPage: new URL(`/stories/${story.id}`, site.url).toString(),
+};
+---
+
+<BaseLayout
+  title={story.data.title}
+  description={story.data.excerpt}
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <article>
+    <section class="page-hero" aria-labelledby="article-title" data-hero>
+      <div class="ed-container">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-stone pb-4">
+          <a href="/stories" class="ed-meta link-underline">← All stories</a>
+          <span class="ed-meta">ARTICLE — {categoryLabel.toUpperCase()}</span>
+        </div>
+
+        <div class="mt-10 grid grid-cols-12 items-end gap-x-6 gap-y-10">
+          <div class="col-span-12 lg:col-span-9">
+            <Label>{categoryLabel}</Label>
+            <h1 id="article-title" class="ed-h1 mt-6" data-split>{story.data.title}</h1>
+          </div>
+          <div class="col-span-12 flex flex-col gap-6 lg:col-span-3">
+            <div data-reveal>
+              <span class="ed-meta">By</span>
+              <p class="mt-1 font-display text-xl font-bold">{story.data.author}</p>
+            </div>
+            <div data-reveal>
+              <span class="ed-meta">Published</span>
+              <p class="mt-1 font-mono text-sm">{formatDateLong(story.data.publishedDate)}</p>
+            </div>
+            <div data-reveal>
+              <span class="ed-meta">Reading time</span>
+              <p class="mt-1 font-mono text-sm">{readingTime} min read</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ed-section" aria-labelledby="article-body-title">
+      <div class="ed-container grid grid-cols-12 gap-x-6 gap-y-10">
+        <div class="col-span-12 md:col-span-3" data-parallax="0.04">
+          <div class="sticky top-24 space-y-6">
+            <div>
+              <span class="ed-label">Category</span>
+              <p class="mt-2 font-display text-2xl font-bold">{categoryLabel}</p>
+            </div>
+            <hr class="ed-rule" />
+            <p class="ed-meta">
+              This story is part of the Sobat Dumpis editorial publication. It was
+              written by a member and shared with the community.
+            </p>
+            <hr class="ed-rule" />
+            <div class="flex items-center gap-3">
+              <span class="ed-meta">Share</span>
+              <a
+                href={`mailto:?subject=${encodeURIComponent(story.data.title)}&body=${encodeURIComponent(new URL(`/stories/${story.id}`, site.url).toString())}`}
+                class="font-mono text-xs uppercase tracking-[0.12em] text-ink-muted transition-colors hover:text-signal"
+              >
+                Email ↗
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-span-12 md:col-span-8 md:col-start-5">
+          <h2 id="article-body-title" class="sr-only">Article body</h2>
+          <div class="ed-prose">
+            <Content />
+          </div>
+
+          <div class="mt-12 border-t border-ink pt-8">
+            <Button href="/stories" variant="outline">Back to Archive</Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </article>
+
+  {
+    related.length > 0 && (
+      <section class="ed-section border-t border-stone" aria-labelledby="related-title">
+        <div class="ed-container">
+          <div class="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <Label>KEEP READING</Label>
+              <h2 id="related-title" class="ed-h2 mt-4">RELATED<br />STORIES.</h2>
+            </div>
+          </div>
+
+          <div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3" data-reveal-group>
+            {related.map((entry) => <StoryCard story={entry} />)}
+          </div>
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>

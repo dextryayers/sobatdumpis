@@ -943,3 +943,10 @@ section.ed-section:first-of-type {
   font-size: 1rem;
   color: var(--color-ink);
 }
+
+.moment-item--tall .moment-img {
+  aspect-ratio: 3 / 4;
+}
+.moment-item--wide .moment-img {
+  aspect-ratio: 16 / 9;
+}

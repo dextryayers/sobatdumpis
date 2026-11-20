@@ -1,5 +1,5 @@
 ---
-import { Instagram, Mail, MessageCircle, Twitter, Youtube } from '@lucide/astro';
+import { AtSign, Mail, MessageCircle, Rss, Video } from '@lucide/astro';
 import { site } from '../../data/site';
 
 const footerLinks = [
@@ -11,10 +11,10 @@ const footerLinks = [
   { label: 'Join Us', href: '/join' },
 ];
 
-const socialIcons: Record<string, typeof Instagram> = {
-  Instagram,
-  Twitter,
-  YouTube: Youtube,
+const socialIcons: Record<string, typeof AtSign> = {
+  Instagram: AtSign,
+  Twitter: Rss,
+  YouTube: Video,
   Discord: MessageCircle,
 };
 

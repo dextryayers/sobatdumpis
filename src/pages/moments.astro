@@ -1,0 +1,134 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/editorial/PageHero.astro';
+import MomentItem from '../components/editorial/MomentItem.astro';
+import Label from '../components/ui/Label.astro';
+import Button from '../components/ui/Button.astro';
+import { Camera, Filter } from '@lucide/astro';
+import { moments } from '../data/moments';
+import { formatDateLong } from '../utils/format';
+
+const title = 'Moments';
+const description =
+  'Galeri momen, kegiatan, dan kenangan komunitas Sobat Dumpis — dikumpulkan, bukan disempurnakan.';
+
+const categories = Array.from(new Set(moments.map((moment) => moment.category))).sort(
+  (a, b) => a.localeCompare(b, 'id')
+);
+
+const filterOptions = [
+  { value: 'all', label: 'All moments' },
+  ...categories.map((category) => ({ value: category, label: category })),
+];
+
+const searchText = (moment: (typeof moments)[number]) =>
+  [moment.title, moment.description, moment.category].join(' ').toLowerCase();
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ImageGallery',
+  name: 'Sobat Dumpis Moments',
+  description,
+  url: new URL('/moments', 'https://sobatdumpis.org').toString(),
+};
+---
+
+<BaseLayout title={title} description={description} jsonLd={jsonLd}>
+  <PageHero
+    index="MOMENTS — 04"
+    label="COMMUNITY MEMORY"
+    title="COLLECTING MOMENTS,"
+    accent="NOT PERFECTION."
+    description="Potret kegiatan, diskusi, tawa, dan hal-hal kecil yang membuat Sobat Dumpis terasa seperti rumah. Foto asli akan menggantikan placeholder ini."
+  />
+
+  <section class="ed-section" aria-labelledby="gallery-title">
+    <div class="ed-container" data-filter-root>
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <div>
+          <Label>THE GALLERY</Label>
+          <h2 id="gallery-title" class="ed-h2 mt-4">A YEAR IN<br />MOMENTS.</h2>
+        </div>
+        <p class="ed-meta" aria-live="polite">
+          <span data-filter-count>{moments.length}</span> moments
+        </p>
+      </div>
+
+      <div class="filter-bar mt-10">
+        <div class="filter-row">
+          <label class="filter-search-wrap">
+            <Filter class="filter-search-icon" size={16} strokeWidth={1.5} aria-hidden="true" />
+            <span class="sr-only">Search moments</span>
+            <input
+              type="search"
+              class="filter-search"
+              placeholder="Search moments…"
+              data-filter-search
+              autocomplete="off"
+            />
+          </label>
+
+          <div class="filter-chips" role="group" aria-label="Filter moments by category">
+            {
+              filterOptions.map((option) => (
+                <button
+                  type="button"
+                  class={`filter-chip ${option.value === 'all' ? 'is-active' : ''}`}
+                  data-filter-category={option.value}
+                  aria-pressed={option.value === 'all' ? 'true' : 'false'}
+                >
+                  {option.label}
+                </button>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="moments-masonry mt-10" data-reveal-group>
+        {
+          moments.map((moment, index) => (
+            <MomentItem
+              moment={moment}
+              showCaption={true}
+              data-filter-item="true"
+              data-search={searchText(moment)}
+              data-category={moment.category}
+              class={index % 3 === 1 ? 'moment-item--tall' : ''}
+            />
+          ))
+        }
+      </div>
+
+      <p class="filter-empty" data-filter-empty hidden>
+        Tidak ada momen yang cocok dengan pencarian itu.
+      </p>
+    </div>
+  </section>
+
+  <section class="ed-section border-t border-stone bg-paper-dark" aria-labelledby="moments-note-title">
+    <div class="ed-container grid grid-cols-12 gap-x-6 gap-y-8">
+      <div class="col-span-12 md:col-span-4">
+        <Label>02 — NOTE</Label>
+        <h2 id="moments-note-title" class="mt-4 font-display text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.05]">
+          FOTO ASLI<br />AKAN DATANG.
+        </h2>
+      </div>
+      <div class="col-span-12 md:col-span-8">
+        <p class="ed-body max-w-2xl" data-reveal>
+          Sementara ini, galeri menampilkan placeholder yang seragam. Ketika foto asli
+          dari kegiatan Sobat Dumpis tersedia, halaman ini akan diperbarui dengan
+          komposisi masonry yang lebih kaya — tanpa mengubah struktur.
+        </p>
+        <p class="ed-body max-w-2xl mt-4" data-reveal>
+          Terakhir diperbarui {formatDateLong(new Date('2026-11-20'))}. Kategori
+          yang tersedia: {categories.join(', ')}.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import '../scripts/interactions/filters';
+</script>

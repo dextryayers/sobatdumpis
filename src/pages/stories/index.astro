@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/editorial/PageHero.astro';
+import StoryCard from '../../components/editorial/StoryCard.astro';
+import Label from '../../components/ui/Label.astro';
+import Button from '../../components/ui/Button.astro';
+import { Search } from '@lucide/astro';
+import { getCollection } from 'astro:content';
+import { STORY_CATEGORY_LABELS, STORY_CATEGORY_CODES } from '../../data/storyCategories';
+import { formatDateLong, formatDateShort } from '../../utils/format';
+
+const title = 'Stories';
+const description =
+  'Baca cerita, pengalaman, pengetahuan, dan pikiran random dari komunitas Sobat Dumpis.';
+
+const stories = (await getCollection('stories')).sort(
+  (a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf()
+);
+
+const featured = stories.find((story) => story.data.featured) ?? stories[0];
+const latest = stories.filter((story) => story.id !== featured?.id);
+
+const allCategories = Object.entries(STORY_CATEGORY_LABELS) as [string, string][];
+
+const filterOptions = [
+  { value: 'all', label: 'All stories' },
+  ...allCategories.map(([value, label]) => ({ value, label })),
+];
+
+const searchText = (story: (typeof stories)[number]) =>
+  [story.data.title, story.data.excerpt, story.data.author, story.data.category]
+    .join(' ')
+    .toLowerCase();
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: 'Sobat Dumpis Stories',
+  url: new URL('/stories', 'https://sobatdumpis.org').toString(),
+  description,
+};
+---
+
+<BaseLayout title={title} description={description} jsonLd={jsonLd}>
+  <PageHero
+    index="STORIES — 03"
+    label="EDITORIAL PUBLICATION"
+    title="EVERY STORY"
+    accent="STARTS SOMEWHERE."
+    description="Cerita, pengalaman, pengetahuan, dan pikiran random dari komunitas Sobat Dumpis. Tidak ada yang terlalu kecil untuk diceritakan."
+  />
+
+  {
+    featured && (
+      <section class="ed-section" aria-labelledby="featured-title">
+        <div class="ed-container grid grid-cols-12 gap-x-6 gap-y-10">
+          <div class="col-span-12 md:col-span-4">
+            <Label>FEATURED STORY</Label>
+            <span class="giant-index mt-8 hidden md:block" aria-hidden="true">
+              {STORY_CATEGORY_CODES[featured.data.category]}
+            </span>
+            <p class="ed-meta mt-8">
+              {formatDateLong(featured.data.publishedDate)} ·{' '}
+              {featured.data.readingTime ?? 0} min read
+            </p>
+            <p class="ed-meta mt-2">By {featured.data.author}</p>
+          </div>
+
+          <div class="col-span-12 md:col-span-8">
+            <h2 id="featured-title" class="ed-h2" data-split>
+              {featured.data.title}
+            </h2>
+            <p class="ed-statement mt-6 max-w-2xl">{featured.data.excerpt}</p>
+            <div class="mt-8">
+              <Button href={`/stories/${featured.id}`}>Read the Story</Button>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="ed-section border-t border-stone" aria-labelledby="archive-title">
+    <div class="ed-container" data-filter-root>
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <div>
+          <Label>THE ARCHIVE</Label>
+          <h2 id="archive-title" class="ed-h2 mt-4">
+            LATEST<br />STORIES.
+          </h2>
+        </div>
+        <p class="ed-meta" aria-live="polite">
+          <span data-filter-count>{stories.length}</span> stories
+        </p>
+      </div>
+
+      <div class="filter-bar mt-10">
+        <div class="filter-row">
+          <label class="filter-search-wrap">
+            <Search class="filter-search-icon" size={16} strokeWidth={1.5} aria-hidden="true" />
+            <span class="sr-only">Search stories</span>
+            <input
+              type="search"
+              class="filter-search"
+              placeholder="Search stories, authors, topics…"
+              data-filter-search
+              autocomplete="off"
+            />
+          </label>
+
+          <div class="filter-chips" role="group" aria-label="Filter stories by category">
+            {
+              filterOptions.map((option) => (
+                <button
+                  type="button"
+                  class={`filter-chip ${option.value === 'all' ? 'is-active' : ''}`}
+                  data-filter-category={option.value}
+                  aria-pressed={option.value === 'all' ? 'true' : 'false'}
+                >
+                  {option.label}
+                </button>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {
+          latest.map((story, index) => (
+            <StoryCard
+              story={story}
+              index={String(index + 2).padStart(2, '0')}
+              data-filter-item="true"
+              data-search={searchText(story)}
+              data-category={story.data.category}
+            />
+          ))
+        }
+      </div>
+
+      <p class="filter-empty" data-filter-empty hidden>
+        Tidak ada cerita yang cocok dengan pencarian itu. Coba kata kunci lain.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import '../../scripts/interactions/filters';
+</script>

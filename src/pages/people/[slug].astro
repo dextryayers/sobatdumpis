@@ -1,5 +1,5 @@
 ---
-import { Instagram, Mail, MessageCircle, Twitter, Youtube } from '@lucide/astro';
+import { AtSign, Mail, MessageCircle, Rss, Video } from '@lucide/astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Label from '../../components/ui/Label.astro';
 import Button from '../../components/ui/Button.astro';
@@ -19,10 +19,10 @@ const { member, index } = Astro.props;
 const others = members.filter((other) => other.id !== member.id).slice(0, 3);
 const profileNumber = String(index + 1).padStart(2, '0');
 
-const socialIcons: Record<string, typeof Instagram> = {
-  Instagram,
-  Twitter,
-  YouTube: Youtube,
+const socialIcons: Record<string, typeof AtSign> = {
+  Instagram: AtSign,
+  Twitter: Rss,
+  YouTube: Video,
   Discord: MessageCircle,
 };
 

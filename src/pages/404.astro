@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Label from '../components/ui/Label.astro';
+import Button from '../components/ui/Button.astro';
+
+const title = 'Page Not Found';
+const description = 'Halaman yang kamu cari tidak ditemukan.';
+---
+
+<BaseLayout title={title} description={description} noindex>
+  <section class="ed-section" aria-labelledby="not-found-title">
+    <div class="ed-container grid grid-cols-12 gap-x-6 gap-y-10">
+      <div class="col-span-12 md:col-span-4">
+        <Label>404 — NOT FOUND</Label>
+        <span class="giant-index mt-8 hidden md:block" aria-hidden="true">404</span>
+      </div>
+
+      <div class="col-span-12 md:col-span-8">
+        <h1 id="not-found-title" class="ed-h2" data-split>
+          THIS PAGE<br />GOT LOST.
+        </h1>
+        <p class="ed-body mt-6 max-w-xl" data-reveal>
+          Halaman yang kamu cari tidak ditemukan. Mungkin tautannya salah, atau
+          halaman itu memang belum ada. Kembali ke halaman utama dan coba lagi.
+        </p>
+        <div class="mt-10 flex flex-wrap gap-4" data-reveal>
+          <Button href="/">Back to Home</Button>
+          <Button href="/stories" variant="outline">Read Stories</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ed-manifesto-banner" aria-labelledby="not-found-manifesto-title">
+    <div class="ed-container">
+      <p id="not-found-manifesto-title" class="ed-label ed-label--paper">A SMALL REMINDER</p>
+      <h2 class="ed-h2 mt-4" data-split>
+        TIDAK SEMUA HAL<br />
+        <span class="text-ink">HARUS ADA TEMPAT.</span>
+      </h2>
+      <p class="ed-value ed-value--paper mt-8 max-w-2xl">
+        Beberapa hal memang tidak pernah sampai ke tujuan. Yang penting adalah
+        perjalanan — dan tautan yang benar.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
