@@ -1,0 +1,80 @@
+---
+import { navLinks } from '../../data/navigation';
+import { site } from '../../data/site';
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) =>
+  currentPath === href || (href !== '/' && currentPath.startsWith(`${href}/`));
+
+const mobileLinks = navLinks;
+---
+
+<header id="site-header" class="sticky top-0 z-40 bg-paper border-b border-stone">
+  <div class="max-w-5xl mx-auto px-4 md:px-8 flex items-center justify-between">
+    <a
+      href="/"
+      class="flex items-center gap-3 font-display font-bold text-ink"
+      aria-label={`${site.name} home`}
+    >
+      <img src="/assets/logo-mark.svg" alt="" class="h-7 w-7 object-contain" />
+      <span>SOBAT DUMPIS</span>
+    </a>
+
+    <nav aria-label="Site navigation">
+      <ul class="hidden md:flex items-center gap-6">
+        {
+          navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class={`site-nav-link ${isActive(link.href) ? 'is-active' : ''}`.trim()}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="md:hidden flex items-center">
+      <button
+        id="mobile-menu-toggle"
+        type="button"
+        class="site-mobile-toggle"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <span class="sr-only">Open site menu</span>
+        <svg
+          class="site-mobile-toggle-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          aria-hidden="true"
+        >
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div id="mobile-menu" class="site-mobile-menu hidden" aria-hidden="true">
+  <nav aria-label="Mobile site navigation">
+    <ul class="site-mobile-links">
+      {
+        mobileLinks.map((link) => (
+          <li>
+            <a href={link.href} class={`site-mobile-link ${isActive(link.href) ? 'is-active' : ''}`.trim()}>
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</div>

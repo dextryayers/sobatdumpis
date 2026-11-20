@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" role="img" aria-label="Sobat Dumpis mark">
+  <rect width="28" height="28" fill="#E44332"/>
+  <circle cx="9" cy="9" r="2.5" fill="#F5F3ED"/>
+  <circle cx="19" cy="9" r="2.5" fill="#F5F3ED"/>
+  <path d="M6 19.5h16" stroke="#F5F3ED" stroke-width="2" stroke-linecap="round"/>
+</svg>

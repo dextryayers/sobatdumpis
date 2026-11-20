@@ -1,0 +1,13 @@
+---
+import { moments } from '../../data/moments';
+import MomentItem from '../editorial/MomentItem.astro';
+---
+
+<section class="ed-section" id="moments-section" aria-labelledby="moments-title">
+  <div class="ed-container">
+    <h2 id="moments-title" class="ed-h2">COLLECTING MOMENTS,<br/>NOT PERFECTION.</h2>
+    <div class="moments-masonry mt-12">
+      {moments.map((moment) => <MomentItem moment={moment} />)}
+    </div>
+  </div>
+</section>

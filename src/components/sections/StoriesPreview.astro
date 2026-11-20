@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import StoryCard from '../editorial/StoryCard.astro';
+import Button from '../ui/Button.astro';
+
+const stories = await getCollection('stories');
+const sorted = stories.sort((a, b) => {
+  if (a.data.featured && !b.data.featured) return -1;
+  if (!a.data.featured && b.data.featured) return 1;
+  return b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf();
+});
+const preview = sorted.slice(0, 3);
+---
+
+<section class="ed-section" id="stories-preview" aria-labelledby="stories-preview-title">
+  <div class="ed-container">
+    <h2 id="stories-preview-title" class="ed-h2">EVERY STORY STARTS SOMEWHERE.</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 mt-12">
+      {preview.map((story) => <StoryCard story={story} />)}
+    </div>
+    <div class="mt-12">
+      <Button href="/stories">Explore All Stories</Button>
+    </div>
+  </div>
+</section>

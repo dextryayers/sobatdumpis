@@ -1,0 +1,25 @@
+{
+  "name": "sobatdumpis",
+  "version": "1.0.0",
+  "description": "Sobat Dumpis — Swiss Editorial Community Website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "sync": "astro sync"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.6",
+    "@lucide/astro": "^1.77.0",
+    "@tailwindcss/vite": "^4.3.5",
+    "astro": "^7.4.13",
+    "gsap": "^3.15.1",
+    "tailwindcss": "^4.3.5",
+    "typescript": "^7.0.2"
+  },
+  "devDependencies": {}
+}

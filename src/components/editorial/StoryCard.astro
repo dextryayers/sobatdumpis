@@ -1,0 +1,28 @@
+---
+import Label from '../ui/Label.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  story: CollectionEntry<'stories'>;
+}
+const { story } = Astro.props;
+
+const published = story.data.publishedDate.toLocaleDateString('id-ID', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+});
+---
+
+<article class="story-card">
+  <Label class="story-cat" tone="red">
+    {story.data.category}
+  </Label>
+  <h3 class="story-title">{story.data.title}</h3>
+  <p class="story-excerpt">{story.data.excerpt}</p>
+  <div class="story-meta">
+    <span class="story-author">{story.data.author}</span>
+    <time class="story-date">{published}</time>
+    <span class="story-reading">{story.data.readingTime ?? 0} min read</span>
+  </div>
+</article>

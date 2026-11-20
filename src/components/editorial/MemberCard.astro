@@ -1,0 +1,31 @@
+---
+import type { Member } from '../../types';
+
+interface Props {
+  m: Member;
+}
+const { m } = Astro.props;
+---
+
+<article class="member-card flex flex-col">
+  <img src={m.avatarSrc} alt={m.name} class="member-avatar" />
+  <div class="mt-4">
+    <h3 class="member-name">{m.name}</h3>
+    <span class="member-nickname">@{m.nickname}</span>
+    <p class="member-desc">{m.description}</p>
+    <ul class="member-interests">
+      {
+        m.interests.map((interest) => (
+          <li class="member-interest">{interest}</li>
+        ))
+      }
+    </ul>
+    {
+      m.socials.map((social) => (
+        <a href={social.url} target="_blank" rel="noopener noreferrer" class="member-social">
+          {social.platform}
+        </a>
+      ))
+    }
+  </div>
+</article>

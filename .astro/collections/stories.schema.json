@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "excerpt": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "personal",
+        "technology",
+        "creativity",
+        "experiences",
+        "random-thoughts",
+        "knowledge-sharing"
+      ]
+    },
+    "author": {
+      "type": "string"
+    },
+    "publishedDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "readingTime": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "featured": {
+      "type": "boolean"
+    },
+    "image": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "alt": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "src"
+      ]
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "excerpt",
+    "category",
+    "author",
+    "publishedDate"
+  ]
+}

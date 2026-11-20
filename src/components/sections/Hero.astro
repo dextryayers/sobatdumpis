@@ -1,0 +1,26 @@
+---
+import Label from '../ui/Label.astro';
+import Button from '../ui/Button.astro';
+---
+
+<section class="ed-section" aria-labelledby="hero-title">
+  <div class="ed-container">
+    <Label class="mb-6">INDEPENDENT COMMUNITY.</Label>
+    <h1 id="hero-title" class="ed-h1">
+      NOT EVERYONE IS THE SAME.
+      <span class="ed-h1-accent">THAT'S THE POINT.</span>
+    </h1>
+    <p class="ed-body max-w-2xl mt-8">
+      Tempat bertemunya berbagai cerita, pemikiran, karakter, dan manusia-manusia
+      random. Kami percaya bahwa setiap orang punya cerita yang layak didengar.
+    </p>
+    <div class="mt-10 flex flex-wrap gap-4">
+      <Button href="/people">Meet the People</Button>
+      <Button href="/stories" variant="outline">Explore Our Stories</Button>
+    </div>
+    <div class="mt-8 ed-labels">
+      <Label>OPEN TO EVERYONE.</Label>
+      <Label>ESTABLISHED 2026.</Label>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,17 @@
+---
+import { members } from '../../data/members';
+import MemberCard from '../editorial/MemberCard.astro';
+import Button from '../ui/Button.astro';
+---
+
+<section class="ed-section" id="people-preview" aria-labelledby="people-preview-title">
+  <div class="ed-container">
+    <h2 id="people-preview-title" class="ed-h2">DIFFERENT PEOPLE.<br/>ONE COMMON SPACE.</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mt-12">
+      {members.slice(0, 4).map((m) => <MemberCard m={m} />)}
+    </div>
+    <div class="mt-12">
+      <Button href="/people">Meet Everyone</Button>
+    </div>
+  </div>
+</section>

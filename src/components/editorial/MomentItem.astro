@@ -1,0 +1,19 @@
+---
+import Label from '../ui/Label.astro';
+import type { Moment } from '../../types';
+
+interface Props {
+  moment: Moment;
+}
+const { moment } = Astro.props;
+---
+
+<div class="moment-item">
+  <img class="moment-img" src={moment.imageSrc} alt={moment.alt} />
+  <div class="moment-meta">
+    <Label class="moment-cat" tone="red">
+      {moment.category}
+    </Label>
+    <time class="moment-date">{moment.date}</time>
+  </div>
+</div>

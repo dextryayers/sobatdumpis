@@ -1,0 +1,22 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'span'> {
+  tone?: 'red' | 'ink' | 'ink-muted' | 'paper';
+}
+
+const { tone = 'red', class: classList, ...rest } = Astro.props;
+const toneClasses = {
+  red: 'text-signal',
+  ink: 'text-ink',
+  'ink-muted': 'text-ink-muted',
+  paper: 'text-paper',
+};
+---
+
+<span
+  class={`ed-label ${toneClasses[tone]} ${classList ?? ''}`.trim()}
+  {...rest}
+>
+  <slot />
+</span>

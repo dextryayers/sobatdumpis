@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import CommunityIntro from '../components/sections/CommunityIntro.astro';
+import CommunityValues from '../components/sections/CommunityValues.astro';
+import PeoplePreview from '../components/sections/PeoplePreview.astro';
+import StoriesPreview from '../components/sections/StoriesPreview.astro';
+import MomentsSection from '../components/sections/MomentsSection.astro';
+import CommunityManifesto from '../components/sections/CommunityManifesto.astro';
+import JoinCTA from '../components/sections/JoinCTA.astro';
+
+const title = 'Sobat Dumpis';
+const description =
+  'A little random. A lot of meaning. Tempat bertemunya berbagai cerita, pemikiran, karakter, dan manusia-manusia random.';
+---
+
+<BaseLayout title={title} description={description}>
+  <Hero />
+  <CommunityIntro />
+  <CommunityValues />
+  <PeoplePreview />
+  <StoriesPreview />
+  <MomentsSection />
+  <CommunityManifesto />
+  <JoinCTA />
+</BaseLayout>
