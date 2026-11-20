@@ -1,28 +1,58 @@
 ---
-import Label from '../ui/Label.astro';
+import type { HTMLAttributes } from 'astro/types';
 import type { CollectionEntry } from 'astro:content';
+import Label from '../ui/Label.astro';
+import {
+  STORY_CATEGORY_CODES,
+  STORY_CATEGORY_LABELS,
+  STORY_CATEGORY_TONES,
+} from '../../data/storyCategories';
+import { estimateReadingTime, formatDateShort, formatISODate } from '../../utils/format';
 
-interface Props {
+interface Props extends HTMLAttributes<'article'> {
   story: CollectionEntry<'stories'>;
+  featured?: boolean;
+  index?: string;
 }
-const { story } = Astro.props;
 
-const published = story.data.publishedDate.toLocaleDateString('id-ID', {
-  day: 'numeric',
-  month: 'short',
-  year: 'numeric',
-});
+const { story, featured = false, index, class: classList, ...rest } = Astro.props;
+
+const category = story.data.category;
+const categoryLabel = STORY_CATEGORY_LABELS[category];
+const categoryCode = STORY_CATEGORY_CODES[category];
+const tone = STORY_CATEGORY_TONES[category];
+const readingTime = story.data.readingTime ?? estimateReadingTime(story.body);
+const published = formatDateShort(story.data.publishedDate);
 ---
 
-<article class="story-card">
-  <Label class="story-cat" tone="red">
-    {story.data.category}
-  </Label>
-  <h3 class="story-title">{story.data.title}</h3>
-  <p class="story-excerpt">{story.data.excerpt}</p>
-  <div class="story-meta">
-    <span class="story-author">{story.data.author}</span>
-    <time class="story-date">{published}</time>
-    <span class="story-reading">{story.data.readingTime ?? 0} min read</span>
-  </div>
+<article
+  class={`story-card ${featured ? 'story-card--featured' : ''} ${classList ?? ''}`.trim()}
+  {...rest}
+>
+  <a
+    class="story-card-link"
+    href={`/stories/${story.id}`}
+    aria-label={`Read the story: ${story.data.title}`}
+  >
+    <div
+      class={`story-cover story-cover--${tone} ${featured ? 'story-cover--wide' : ''}`}
+      aria-hidden="true"
+    >
+      <span class="story-cover-code">{categoryCode}</span>
+      <span class="story-cover-index">{index ?? categoryLabel}</span>
+    </div>
+
+    <div class="mt-5">
+      <Label class="story-cat">{categoryLabel}</Label>
+      <h3 class="story-title">{story.data.title}</h3>
+      <p class="story-excerpt">{story.data.excerpt}</p>
+      <div class="story-meta">
+        <span>{story.data.author}</span>
+        <span aria-hidden="true">—</span>
+        <time datetime={formatISODate(story.data.publishedDate)}>{published}</time>
+        <span aria-hidden="true">—</span>
+        <span>{readingTime} min read</span>
+      </div>
+    </div>
+  </a>
 </article>

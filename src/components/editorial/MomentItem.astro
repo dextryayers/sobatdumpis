@@ -1,19 +1,37 @@
 ---
-import Label from '../ui/Label.astro';
+import type { HTMLAttributes } from 'astro/types';
 import type { Moment } from '../../types';
+import Label from '../ui/Label.astro';
+import { formatDateShort } from '../../utils/format';
 
-interface Props {
+interface Props extends HTMLAttributes<'figure'> {
   moment: Moment;
+  showCaption?: boolean;
 }
-const { moment } = Astro.props;
+
+const { moment, showCaption = false, class: classList, ...rest } = Astro.props;
 ---
 
-<div class="moment-item">
-  <img class="moment-img" src={moment.imageSrc} alt={moment.alt} />
-  <div class="moment-meta">
-    <Label class="moment-cat" tone="red">
-      {moment.category}
-    </Label>
-    <time class="moment-date">{moment.date}</time>
-  </div>
-</div>
+<figure class={`moment-item ${classList ?? ''}`.trim()} {...rest}>
+  <img
+    class="moment-img"
+    src={moment.imageSrc}
+    alt={moment.alt}
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption class="moment-caption">
+    <div class="moment-meta">
+      <Label class="moment-cat">{moment.category}</Label>
+      <time class="moment-date" datetime={moment.date}>{formatDateShort(new Date(moment.date))}</time>
+    </div>
+    {
+      showCaption && (
+        <>
+          <p class="moment-title">{moment.title}</p>
+          <p class="moment-desc">{moment.description}</p>
+        </>
+      )
+    }
+  </figcaption>
+</figure>
