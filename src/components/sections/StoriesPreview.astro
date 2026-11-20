@@ -2,6 +2,9 @@
 import { getCollection } from 'astro:content';
 import StoryCard from '../editorial/StoryCard.astro';
 import Button from '../ui/Button.astro';
+import Label from '../ui/Label.astro';
+import { STORY_CATEGORY_LABELS } from '../../data/storyCategories';
+import { formatDateShort } from '../../utils/format';
 
 const stories = await getCollection('stories');
 const sorted = stories.sort((a, b) => {
@@ -9,17 +12,50 @@ const sorted = stories.sort((a, b) => {
   if (!a.data.featured && b.data.featured) return 1;
   return b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf();
 });
-const preview = sorted.slice(0, 3);
+
+const featured = sorted.find((story) => story.data.featured) ?? sorted[0];
+const sideStories = sorted.filter((story) => story.id !== featured?.id).slice(0, 3);
 ---
 
-<section class="ed-section" id="stories-preview" aria-labelledby="stories-preview-title">
+<section class="ed-section border-t border-stone" id="stories-preview" aria-labelledby="stories-preview-title">
   <div class="ed-container">
-    <h2 id="stories-preview-title" class="ed-h2">EVERY STORY STARTS SOMEWHERE.</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 mt-12">
-      {preview.map((story) => <StoryCard story={story} />)}
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <Label>05 — STORIES</Label>
+        <h2 id="stories-preview-title" class="ed-h2 mt-4">
+          EVERY STORY<br />STARTS SOMEWHERE.
+        </h2>
+      </div>
+      <Button href="/stories" variant="outline">Explore All Stories</Button>
     </div>
-    <div class="mt-12">
-      <Button href="/stories">Explore All Stories</Button>
+
+    <div class="mt-12 grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-6">
+      {featured && <StoryCard story={featured} featured index="FEATURED" class="md:col-span-7" />}
+
+      <ol class="border-t border-ink md:col-span-5" data-reveal-group>
+        {
+          sideStories.map((story, i) => (
+            <li class="border-b border-stone">
+              <a
+                href={`/stories/${story.id}`}
+                class="group block py-5"
+                aria-label={`Read the story: ${story.data.title}`}
+              >
+                <div class="flex items-center justify-between gap-4 ed-meta">
+                  <span>{STORY_CATEGORY_LABELS[story.data.category]}</span>
+                  <span aria-hidden="true">0{i + 2}</span>
+                </div>
+                <h3 class="mt-2 font-display text-xl font-bold leading-tight transition-colors group-hover:text-signal">
+                  {story.data.title}
+                </h3>
+                <p class="mt-1 text-sm text-ink-muted">
+                  {story.data.author} — {formatDateShort(story.data.publishedDate)}
+                </p>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
     </div>
   </div>
 </section>

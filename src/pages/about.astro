@@ -1,0 +1,232 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/editorial/PageHero.astro';
+import CommunityValues from '../components/sections/CommunityValues.astro';
+import CommunityManifesto from '../components/sections/CommunityManifesto.astro';
+import Label from '../components/ui/Label.astro';
+import Button from '../components/ui/Button.astro';
+import { site } from '../data/site';
+
+const title = 'About';
+const description =
+  'Kenali Sobat Dumpis: komunitas independen untuk orang-orang random yang percaya bahwa setiap cerita layak didengar.';
+
+const reasons = [
+  {
+    title: 'Ruang yang tidak menuntut keseragaman',
+    description:
+      'Kami tidak merekrut orang untuk menjadi salinan satu sama lain. Perbedaan adalah bahan bakar percakapan, bukan hambatan.',
+  },
+  {
+    title: 'Percakapan yang melampaui basa-basi',
+    description:
+      'Di sini, obrolan bisa dimulai dari hal kecil lalu berakhir pada pertanyaan besar. Tidak ada topik yang terlalu random.',
+  },
+  {
+    title: 'Cerita yang tidak selalu punya panggung',
+    description:
+      'Banyak cerita bagus tidak pernah sampai ke mana-mana karena tidak ada tempat untuk menaruhnya. Sobat Dumpis mencoba menjadi tempat itu.',
+  },
+];
+
+const missions = [
+  'Membangun ruang interaksi yang terbuka dan menghargai setiap individu.',
+  'Mendorong budaya berbagi pengetahuan, pengalaman, ide, dan kreativitas.',
+  'Menghubungkan orang-orang dengan berbagai minat dan latar belakang.',
+  'Menciptakan lingkungan yang positif, suportif, dan menyenangkan.',
+  'Mengembangkan kegiatan serta kolaborasi yang memberikan dampak positif.',
+  'Menghargai keunikan, kebebasan berekspresi, dan perbedaan perspektif.',
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: `About ${site.name}`,
+  description,
+  url: new URL('/about', site.url).toString(),
+  mainEntity: {
+    '@type': 'Organization',
+    name: 'Sobat Dumpis',
+    foundingDate: String(site.establishedYear),
+    email: site.contactEmail,
+  },
+};
+---
+
+<BaseLayout title={title} description={description} jsonLd={jsonLd}>
+  <PageHero
+    index="ABOUT — 01"
+    label="ABOUT SOBAT DUMPIS"
+    title="A LITTLE RANDOM."
+    accent="A LOT OF MEANING."
+    description="Kami adalah komunitas independen yang tumbuh dari percakapan kecil, rasa ingin tahu, dan keyakinan bahwa tidak semua hal baik harus direncanakan."
+  />
+
+  <!-- Our Story -->
+  <section class="ed-section" aria-labelledby="story-title">
+    <div class="ed-container grid grid-cols-12 gap-x-6 gap-y-10">
+      <div class="col-span-12 md:col-span-4">
+        <Label>02 — OUR STORY</Label>
+        <span class="giant-index mt-8 hidden md:block" aria-hidden="true">02</span>
+        <dl class="mt-8 border-t border-ink">
+          <div class="flex justify-between gap-4 border-b border-stone py-3">
+            <dt class="ed-meta">Established</dt>
+            <dd class="ed-meta">{site.establishedYear}</dd>
+          </div>
+          <div class="flex justify-between gap-4 border-b border-stone py-3">
+            <dt class="ed-meta">Status</dt>
+            <dd class="ed-meta">Independent</dd>
+          </div>
+          <div class="flex justify-between gap-4 border-b border-stone py-3">
+            <dt class="ed-meta">Membership</dt>
+            <dd class="ed-meta">Open to everyone</dd>
+          </div>
+          <div class="flex justify-between gap-4 border-b border-stone py-3">
+            <dt class="ed-meta">Base</dt>
+            <dd class="ed-meta">Indonesia</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="col-span-12 md:col-span-8">
+        <h2 id="story-title" class="ed-h2" data-split>
+          KAMI MULAI DARI<br />HAL-HAL KECIL.
+        </h2>
+
+        <div class="mt-8 space-y-5" data-reveal>
+          <p class="ed-body max-w-2xl">
+            Sobat Dumpis lahir dari percakapan yang tidak direncanakan: obrolan malam
+            di sela-sela pekerjaan, tautan yang dikirim tanpa konteks, dan cerita yang
+            awalnya cuma dimaksudkan untuk satu orang. Perlahan, percakapan itu
+            menemukan bentuknya sendiri.
+          </p>
+          <p class="ed-body max-w-2xl">
+            Kami bukan organisasi besar dan tidak ingin menjadi mesin konten. Kami
+            hanya sekumpulan individu dengan minat yang berbeda-beda yang memutuskan
+            untuk tetap terhubung, berbagi, dan membuat sesuatu bersama — sesekali
+            serius, lebih sering random.
+          </p>
+        </div>
+
+        <blockquote class="mt-10 border-l-2 border-signal pl-6" data-reveal>
+          <p class="ed-statement">
+            "Komunitas yang baik tidak membuat semua orang terlihat sama. Ia membuat
+            setiap orang merasa cukup untuk hadir apa adanya."
+          </p>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why we exist -->
+  <section class="ed-section border-t border-stone" aria-labelledby="why-title">
+    <div class="ed-container grid grid-cols-12 gap-x-6 gap-y-10">
+      <div class="col-span-12 md:col-span-4">
+        <Label>03 — WHY WE EXIST</Label>
+        <h2
+          id="why-title"
+          class="mt-4 font-display text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.05]"
+        >
+          KARENA TEMPAT<br />SEPERTI INI<br />MASIH DIBUTUHKAN.
+        </h2>
+      </div>
+
+      <ol class="col-span-12 border-t border-ink md:col-span-8" data-reveal-group>
+        {
+          reasons.map((reason, i) => (
+            <li class="ed-row">
+              <span class="ed-row-index" aria-hidden="true">0{i + 1}</span>
+              <h3 class="ed-row-title">{reason.title}</h3>
+              <p class="ed-row-text">{reason.description}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Vision -->
+  <section class="border-y border-stone bg-paper-dark" aria-labelledby="vision-title">
+    <div class="ed-container py-20 md:py-28">
+      <div class="grid grid-cols-12 gap-x-6 gap-y-8">
+        <div class="col-span-12 md:col-span-3">
+          <Label>04 — VISION</Label>
+          <p class="ed-meta mt-4">Where we are going</p>
+        </div>
+        <div class="col-span-12 md:col-span-9">
+          <h2 id="vision-title" class="sr-only">Vision</h2>
+          <p class="ed-statement" data-reveal>
+            Menjadi ruang komunitas yang terbuka, hangat, dan inklusif bagi siapa saja
+            untuk terhubung, berbagi cerita, bertukar pengetahuan, serta menciptakan
+            pengalaman bermakna bersama.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section class="ed-section" aria-labelledby="mission-title">
+    <div class="ed-container grid grid-cols-12 gap-x-6 gap-y-10">
+      <div class="col-span-12 md:col-span-4">
+        <Label>05 — MISSION</Label>
+        <h2
+          id="mission-title"
+          class="mt-4 font-display text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.05]"
+        >
+          ENAM HAL YANG<br />KAMI JAGA.
+        </h2>
+        <p class="ed-meta mt-6 max-w-[26ch]">
+          Bukan target yang harus dicentang, melainkan arah yang kami ingat.
+        </p>
+      </div>
+
+      <ol class="col-span-12 border-t border-ink md:col-span-8" data-reveal-group>
+        {
+          missions.map((mission, i) => (
+            <li class="ed-row md:grid-cols-[4rem_minmax(0,1fr)]">
+              <span class="ed-row-index" aria-hidden="true">0{i + 1}</span>
+              <p class="ed-row-text ed-row-text--plain">
+                {mission}
+              </p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <CommunityValues indexLabel="06 — CORE VALUES" title="FIVE THINGS WE KEEP." />
+
+  <CommunityManifesto />
+
+  <!-- Philosophy -->
+  <section class="ed-section" aria-labelledby="philosophy-title">
+    <div class="ed-container grid grid-cols-12 gap-x-6 gap-y-10">
+      <div class="col-span-12 md:col-span-4">
+        <Label>08 — OUR PHILOSOPHY</Label>
+        <p class="ed-meta mt-4">How we think about this space</p>
+      </div>
+      <div class="col-span-12 md:col-span-8">
+        <h2 id="philosophy-title" class="ed-h2" data-split>
+          ORANG DULU.<br />FORMAT KEMUDIAN.
+        </h2>
+        <div class="mt-8 space-y-5" data-reveal>
+          <p class="ed-body max-w-2xl">
+            Kami percaya komunitas yang sehat tidak dibangun dari algoritma, metrik,
+            atau jumlah anggota. Ia dibangun dari percakapan yang jujur, rasa hormat
+            terhadap waktu orang lain, dan keberanian untuk tampil belum selesai.
+          </p>
+          <p class="ed-body max-w-2xl">
+            Karena itu, Sobat Dumpis tidak mengejar kesempurnaan. Kami mengejar
+            keterlibatan yang tulus: orang yang datang, berbagi sesuatu yang nyata,
+            lalu pulang dengan rasa bahwa mereka diterima.
+          </p>
+        </div>
+        <div class="mt-10" data-reveal>
+          <Button href="/join">Become a Part of Us</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

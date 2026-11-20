@@ -1,0 +1,126 @@
+---
+import { Search } from '@lucide/astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/editorial/PageHero.astro';
+import MemberCard from '../../components/editorial/MemberCard.astro';
+import Button from '../../components/ui/Button.astro';
+import { members } from '../../data/members';
+
+const title = 'People';
+const description =
+  'Kenali orang-orang di balik Sobat Dumpis — individu dengan minat, latar belakang, dan cerita yang berbeda-beda.';
+
+const interests = Array.from(new Set(members.flatMap((member) => member.interests))).sort(
+  (a, b) => a.localeCompare(b, 'id')
+);
+
+const filterOptions = [
+  { value: 'all', label: 'All people' },
+  ...interests.map((interest) => ({ value: interest, label: interest })),
+];
+
+const searchText = (member: (typeof members)[number]) =>
+  [member.name, member.nickname, member.description, ...member.interests]
+    .join(' ')
+    .toLowerCase();
+---
+
+<BaseLayout title={title} description={description}>
+  <PageHero
+    index="PEOPLE — 02"
+    label="PEOPLE DIRECTORY"
+    title="DIFFERENT PEOPLE."
+    accent="ONE COMMON SPACE."
+    description="Tidak ada satu tipe orang di Sobat Dumpis. Yang menyatukan kami sederhana: rasa ingin tahu, kemauan untuk berbagi, dan ruang untuk menjadi diri sendiri."
+  />
+
+  <section class="ed-section" aria-labelledby="directory-title">
+    <div class="ed-container" data-filter-root>
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <div>
+          <h2 id="directory-title" class="ed-h2">MEET EVERYONE.</h2>
+          <p class="ed-body mt-4 max-w-xl">
+            Cari berdasarkan nama, nama panggilan, atau minat. Setiap profil adalah
+            placeholder sampai data anggota asli diberikan.
+          </p>
+        </div>
+        <p class="ed-meta" aria-live="polite">
+          <span data-filter-count>{members.length}</span> people
+        </p>
+      </div>
+
+      <div class="filter-bar mt-10">
+        <div class="filter-row">
+          <label class="filter-search-wrap">
+            <Search class="filter-search-icon" size={16} strokeWidth={1.5} aria-hidden="true" />
+            <span class="sr-only">Search people</span>
+            <input
+              type="search"
+              class="filter-search"
+              placeholder="Search people or interests…"
+              data-filter-search
+              autocomplete="off"
+            />
+          </label>
+
+          <div class="filter-chips" role="group" aria-label="Filter people by interest">
+            {
+              filterOptions.map((option) => (
+                <button
+                  type="button"
+                  class={`filter-chip ${option.value === 'all' ? 'is-active' : ''}`}
+                  data-filter-category={option.value}
+                  aria-pressed={option.value === 'all' ? 'true' : 'false'}
+                >
+                  {option.label}
+                </button>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          members.map((member, index) => (
+            <MemberCard
+              m={member}
+              index={String(index + 1).padStart(2, '0')}
+              class="h-full"
+              data-filter-item="true"
+              data-search={searchText(member)}
+              data-category={member.interests.join('|')}
+            />
+          ))
+        }
+      </div>
+
+      <p class="filter-empty" data-filter-empty hidden>
+        Tidak ada orang yang cocok dengan pencarian itu. Coba kata kunci lain.
+      </p>
+    </div>
+  </section>
+
+  <section class="ed-section border-t border-stone bg-ink text-paper" aria-labelledby="people-join-title">
+    <div class="ed-container flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+      <div>
+        <p class="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-paper/60">
+          Your name could be here
+        </p>
+        <h2 id="people-join-title" class="mt-4 font-display text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1.02]">
+          THE DOOR<br />IS OPEN.
+        </h2>
+      </div>
+      <div class="flex flex-col items-start gap-4 md:items-end">
+        <p class="ed-body ed-body--stone max-w-sm md:text-right">
+          Kamu tidak perlu punya keahlian khusus. Cukup rasa ingin tahu dan niat baik.
+        </p>
+        <Button href="/join">Become a Part of Us</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import '../../scripts/interactions/filters';
+</script>

@@ -1,13 +1,24 @@
 ---
 import { moments } from '../../data/moments';
 import MomentItem from '../editorial/MomentItem.astro';
+import Button from '../ui/Button.astro';
+import Label from '../ui/Label.astro';
 ---
 
-<section class="ed-section" id="moments-section" aria-labelledby="moments-title">
+<section class="ed-section border-t border-stone" id="moments-section" aria-labelledby="moments-title">
   <div class="ed-container">
-    <h2 id="moments-title" class="ed-h2">COLLECTING MOMENTS,<br/>NOT PERFECTION.</h2>
-    <div class="moments-masonry mt-12">
-      {moments.map((moment) => <MomentItem moment={moment} />)}
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <Label>06 — MOMENTS</Label>
+        <h2 id="moments-title" class="ed-h2 mt-4">
+          COLLECTING MOMENTS,<br />NOT PERFECTION.
+        </h2>
+      </div>
+      <Button href="/moments" variant="outline">View All Moments</Button>
+    </div>
+
+    <div class="moments-masonry mt-12" data-reveal-group>
+      {moments.slice(0, 5).map((moment) => <MomentItem moment={moment} />)}
     </div>
   </div>
 </section>

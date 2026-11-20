@@ -1,0 +1,42 @@
+---
+import Label from '../ui/Label.astro';
+
+interface Props {
+  index: string;
+  label: string;
+  title: string;
+  accent?: string;
+  description?: string;
+}
+
+const { index, label, title, accent, description } = Astro.props;
+---
+
+<section class="page-hero" aria-labelledby="page-title" data-hero>
+  <div class="ed-container">
+    <div class="flex flex-wrap items-center justify-between gap-3 border-b border-stone pb-4">
+      <Label>{label}</Label>
+      <span class="ed-meta">{index}</span>
+    </div>
+
+    <h1 id="page-title" class="ed-h1" data-split>
+      {title}
+      {
+        accent && (
+          <>
+            <br />
+            <span class="ed-h1-accent">{accent}</span>
+          </>
+        )
+      }
+    </h1>
+
+    {
+      description && (
+        <p class="ed-body mt-8 max-w-2xl" data-reveal>
+          {description}
+        </p>
+      )
+    }
+  </div>
+</section>

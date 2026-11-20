@@ -3,31 +3,98 @@ import { navLinks } from '../../data/navigation';
 import { site } from '../../data/site';
 
 const currentPath = Astro.url.pathname;
-const isActive = (href: string) =>
-  currentPath === href || (href !== '/' && currentPath.startsWith(`${href}/`));
+const normalized = (path: string) =>
+  path !== '/' && path.endsWith('/') ? path.slice(0, -1) : path;
+const activePath = normalized(currentPath);
 
-const mobileLinks = navLinks;
+const isActive = (href: string) =>
+  activePath === href || (href !== '/' && activePath.startsWith(`${href}/`));
 ---
 
-<header id="site-header" class="sticky top-0 z-40 bg-paper border-b border-stone">
-  <div class="max-w-5xl mx-auto px-4 md:px-8 flex items-center justify-between">
+<header
+  id="site-header"
+  class="sticky top-0 z-40 border-b border-stone bg-paper/95 backdrop-blur-sm"
+  data-animate="nav"
+>
+  <div class="ed-container flex h-16 items-center justify-between gap-6 md:h-20">
     <a
       href="/"
-      class="flex items-center gap-3 font-display font-bold text-ink"
-      aria-label={`${site.name} home`}
+      class="group flex items-center gap-3"
+      aria-label={`${site.name} — home`}
     >
-      <img src="/assets/logo-mark.svg" alt="" class="h-7 w-7 object-contain" />
-      <span>SOBAT DUMPIS</span>
+      <img
+        src="/assets/logo-mark.svg"
+        alt=""
+        class="h-7 w-7 object-contain transition-transform duration-200 group-hover:rotate-6"
+        width="28"
+        height="28"
+      />
+      <span class="font-display text-[0.95rem] font-bold tracking-[0.01em] text-ink">
+        SOBAT DUMPIS
+      </span>
     </a>
 
-    <nav aria-label="Site navigation">
-      <ul class="hidden md:flex items-center gap-6">
+    <div class="hidden items-center gap-8 md:flex">
+      <nav aria-label="Primary navigation">
+        <ul class="flex items-center gap-6 lg:gap-8">
+          {
+            navLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class={`site-nav-link ${isActive(link.href) ? 'is-active' : ''}`.trim()}
+                  aria-current={isActive(link.href) ? 'page' : undefined}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <span class="hidden ed-meta lg:block" aria-hidden="true">EST. {site.establishedYear}</span>
+    </div>
+
+    <button
+      id="mobile-menu-toggle"
+      type="button"
+      class="site-mobile-toggle md:hidden"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Open site menu"
+    >
+      <svg
+        class="site-mobile-toggle-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        aria-hidden="true"
+      >
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
+    </button>
+  </div>
+</header>
+
+<div
+  id="mobile-menu"
+  class="site-mobile-menu fixed inset-x-0 top-16 z-30 hidden max-h-[calc(100vh-4rem)] overflow-y-auto shadow-[0_24px_40px_-24px_rgba(23,23,23,0.35)] md:hidden"
+  aria-hidden="true"
+>
+  <div class="ed-container">
+    <nav aria-label="Mobile navigation">
+      <ul class="site-mobile-links">
         {
           navLinks.map((link) => (
             <li>
               <a
                 href={link.href}
-                class={`site-nav-link ${isActive(link.href) ? 'is-active' : ''}`.trim()}
+                class={`site-mobile-link ${isActive(link.href) ? 'is-active' : ''}`.trim()}
+                aria-current={isActive(link.href) ? 'page' : undefined}
               >
                 {link.label}
               </a>
@@ -36,45 +103,6 @@ const mobileLinks = navLinks;
         }
       </ul>
     </nav>
-
-    <div class="md:hidden flex items-center">
-      <button
-        id="mobile-menu-toggle"
-        type="button"
-        class="site-mobile-toggle"
-        aria-expanded="false"
-        aria-controls="mobile-menu"
-      >
-        <span class="sr-only">Open site menu</span>
-        <svg
-          class="site-mobile-toggle-icon"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.5"
-          aria-hidden="true"
-        >
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <line x1="3" y1="12" x2="21" y2="12" />
-          <line x1="3" y1="18" x2="21" y2="18" />
-        </svg>
-      </button>
-    </div>
+    <p class="ed-meta mt-6">A little random. A lot of meaning.</p>
   </div>
-</header>
-
-<div id="mobile-menu" class="site-mobile-menu hidden" aria-hidden="true">
-  <nav aria-label="Mobile site navigation">
-    <ul class="site-mobile-links">
-      {
-        mobileLinks.map((link) => (
-          <li>
-            <a href={link.href} class={`site-mobile-link ${isActive(link.href) ? 'is-active' : ''}`.trim()}>
-              {link.label}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </nav>
 </div>

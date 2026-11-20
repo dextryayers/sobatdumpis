@@ -5,12 +5,32 @@ import Button from '../ui/Button.astro';
 
 <section class="ed-section bg-ink text-paper" id="join-cta" aria-labelledby="join-title">
   <div class="ed-container">
-    <h2 id="join-title" class="ed-h2">THERE'S ALWAYS ROOM FOR ONE MORE.</h2>
-    <p class="ed-body mt-8 max-w-xl text-stone">
-      Kalau kamu suka berbagi cerita, bertemu orang baru, belajar hal baru, atau
-      sekadar menjadi diri sendiri, mungkin kamu akan cocok di sini.
-    </p>
-    <Button href="/join" class="mt-10">Become a Part of Us</Button>
-    <Label tone="paper" class="mt-8 block">OPEN TO EVERYONE.</Label>
+    <div class="flex flex-wrap items-center justify-between gap-4 border-b border-paper/20 pb-4">
+      <Label tone="paper">08 — JOIN THE COMMUNITY</Label>
+      <span class="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-paper/60">
+        Always open
+      </span>
+    </div>
+
+    <div class="mt-10 grid grid-cols-12 gap-x-6 gap-y-10">
+      <div class="col-span-12 lg:col-span-8">
+        <h2 id="join-title" class="ed-h2" data-split>
+          THERE'S ALWAYS<br />ROOM FOR<br />
+          <span class="text-signal">ONE MORE.</span>
+        </h2>
+      </div>
+      <div class="col-span-12 flex flex-col justify-between gap-10 lg:col-span-4">
+        <p class="ed-body ed-body--stone max-w-md" data-reveal>
+          Kalau kamu suka berbagi cerita, bertemu orang baru, belajar hal baru, atau
+          sekadar menjadi diri sendiri, mungkin kamu akan cocok di sini.
+        </p>
+        <div data-reveal>
+          <Button href="/join">Become a Part of Us</Button>
+          <p class="mt-6 font-mono text-[0.6875rem] uppercase tracking-[0.18em] text-paper/60">
+            No forms. No algorithms. Just people.
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

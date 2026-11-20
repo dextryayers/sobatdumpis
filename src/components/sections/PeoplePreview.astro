@@ -2,16 +2,35 @@
 import { members } from '../../data/members';
 import MemberCard from '../editorial/MemberCard.astro';
 import Button from '../ui/Button.astro';
+import Label from '../ui/Label.astro';
 ---
 
-<section class="ed-section" id="people-preview" aria-labelledby="people-preview-title">
+<section class="ed-section border-t border-stone" id="people-preview" aria-labelledby="people-preview-title">
   <div class="ed-container">
-    <h2 id="people-preview-title" class="ed-h2">DIFFERENT PEOPLE.<br/>ONE COMMON SPACE.</h2>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mt-12">
-      {members.slice(0, 4).map((m) => <MemberCard m={m} />)}
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <Label>04 — THE PEOPLE</Label>
+        <h2 id="people-preview-title" class="ed-h2 mt-4">
+          DIFFERENT PEOPLE.<br />
+          <span class="ed-h1-accent">ONE COMMON SPACE.</span>
+        </h2>
+      </div>
+      <Button href="/people" variant="outline">Meet Everyone</Button>
     </div>
-    <div class="mt-12">
-      <Button href="/people">Meet Everyone</Button>
+
+    <div
+      class="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-12 md:gap-6"
+      data-reveal-group
+    >
+      <MemberCard m={members[0]} featured index="01" class="md:col-span-5" />
+      <MemberCard m={members[1]} index="02" class="md:col-span-4" />
+      <MemberCard m={members[2]} index="03" class="md:col-span-3" />
+
+      <div class="flex flex-col justify-between border border-stone p-6 md:col-span-7">
+        <p class="ed-statement">"Setiap orang punya cerita yang layak didengar."</p>
+        <p class="ed-meta mt-8">Sobat Dumpis — People Directory</p>
+      </div>
+      <MemberCard m={members[3]} index="04" class="md:col-span-5" />
     </div>
   </div>
 </section>

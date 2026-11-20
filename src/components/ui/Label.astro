@@ -7,10 +7,10 @@ interface Props extends HTMLAttributes<'span'> {
 
 const { tone = 'red', class: classList, ...rest } = Astro.props;
 const toneClasses = {
-  red: 'text-signal',
-  ink: 'text-ink',
-  'ink-muted': 'text-ink-muted',
-  paper: 'text-paper',
+  red: 'ed-label--red',
+  ink: 'ed-label--ink',
+  'ink-muted': 'ed-label--ink-muted',
+  paper: 'ed-label--paper',
 };
 ---
 

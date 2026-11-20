@@ -1,0 +1,173 @@
+---
+import { Instagram, Mail, MessageCircle, Twitter, Youtube } from '@lucide/astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Label from '../../components/ui/Label.astro';
+import Button from '../../components/ui/Button.astro';
+import MemberCard from '../../components/editorial/MemberCard.astro';
+import { members } from '../../data/members';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return members.map((member, index) => ({
+    params: { slug: member.id },
+    props: { member, index },
+  }));
+}
+
+const { member, index } = Astro.props;
+
+const others = members.filter((other) => other.id !== member.id).slice(0, 3);
+const profileNumber = String(index + 1).padStart(2, '0');
+
+const socialIcons: Record<string, typeof Instagram> = {
+  Instagram,
+  Twitter,
+  YouTube: Youtube,
+  Discord: MessageCircle,
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: member.name,
+  alternateName: member.nickname,
+  description: member.description,
+  url: new URL(`/people/${member.id}`, site.url).toString(),
+  image: new URL(member.avatarSrc, site.url).toString(),
+  memberOf: {
+    '@type': 'Organization',
+    name: 'Sobat Dumpis',
+    url: site.url,
+  },
+};
+---
+
+<BaseLayout
+  title={member.name}
+  description={member.description}
+  ogType="profile"
+  jsonLd={jsonLd}
+>
+  <section class="page-hero" aria-labelledby="profile-title" data-hero>
+    <div class="ed-container">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-stone pb-4">
+        <a href="/people" class="ed-meta link-underline">← All people</a>
+        <span class="ed-meta">PROFILE — {profileNumber}</span>
+      </div>
+
+      <div class="mt-10 grid grid-cols-12 items-end gap-x-6 gap-y-10">
+        <div class="col-span-12 md:col-span-8">
+          <Label>MEMBER PROFILE</Label>
+          <h1 id="profile-title" class="ed-h1 mt-6" data-split>{member.name}</h1>
+          <p class="ed-meta mt-4">@{member.nickname}</p>
+        </div>
+        <div class="col-span-8 col-start-3 md:col-span-4 md:col-start-9">
+          <img
+            src={member.avatarSrc}
+            alt={`Placeholder portrait for ${member.name}`}
+            class="w-full border border-stone"
+            width="320"
+            height="320"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ed-section" aria-labelledby="about-member-title">
+    <div class="ed-container grid grid-cols-12 gap-x-6 gap-y-12">
+      <aside class="col-span-12 md:col-span-4">
+        <div class="border-t border-ink pt-4" data-reveal>
+          <span class="ed-label">Interests</span>
+          <ul class="member-interests mt-4">
+            {member.interests.map((interest) => <li class="member-interest">{interest}</li>)}
+          </ul>
+        </div>
+
+        <div class="mt-10 border-t border-ink pt-4" data-reveal>
+          <span class="ed-label">Elsewhere</span>
+          {
+            member.socials.length > 0 ? (
+              <ul class="mt-4 flex flex-col gap-3">
+                {member.socials.map((social) => {
+                  const Icon = socialIcons[social.platform] ?? MessageCircle;
+                  return (
+                    <li>
+                      <a
+                        href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.12em] text-ink-muted transition-colors hover:text-signal"
+                      >
+                        <Icon size={15} strokeWidth={1.5} aria-hidden="true" />
+                        {social.platform}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : (
+              <p class="ed-meta mt-4">Social links not configured yet.</p>
+            )
+          }
+          <a
+            href={`mailto:${site.contactEmail}`}
+            class="mt-4 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.12em] text-ink-muted transition-colors hover:text-signal"
+          >
+            <Mail size={15} strokeWidth={1.5} aria-hidden="true" />
+            Say hello
+          </a>
+        </div>
+
+        <p class="ed-meta mt-10 max-w-[28ch]">
+          Placeholder profile — real member data will replace this when the directory
+          opens to contributors.
+        </p>
+      </aside>
+
+      <div class="col-span-12 md:col-span-8">
+        <h2 id="about-member-title" class="ed-h2" data-split>
+          A LITTLE ABOUT<br />{member.nickname.toUpperCase()}.
+        </h2>
+
+        <div class="mt-8 space-y-5" data-reveal>
+          <p class="ed-body max-w-2xl">{member.description}</p>
+          <p class="ed-body max-w-2xl">
+            Di Sobat Dumpis, {member.nickname} termasuk orang yang percaya bahwa
+            percakapan terbaik sering dimulai dari hal yang tidak direncanakan. Bukan
+            karena semuanya harus spontan, tetapi karena hal-hal kecil sering membuka
+            pintu yang tidak terlihat.
+          </p>
+          <p class="ed-body max-w-2xl">
+            Ketika tidak sedang sibuk, {member.nickname} biasanya muncul di diskusi
+            ringan, sesi berbagi, atau sekadar menyimak percakapan orang lain sambil
+            menambahkan satu dua komentar yang tak terduga.
+          </p>
+        </div>
+
+        <blockquote class="mt-10 border-l-2 border-signal pl-6" data-reveal>
+          <p class="ed-statement">"{member.description}"</p>
+          <footer class="ed-meta mt-4">— {member.name}</footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="ed-section border-t border-stone" aria-labelledby="more-people-title">
+    <div class="ed-container">
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <div>
+          <Label>MORE PEOPLE</Label>
+          <h2 id="more-people-title" class="ed-h2 mt-4">KEEP EXPLORING.</h2>
+        </div>
+        <Button href="/people" variant="outline">Back to Directory</Button>
+      </div>
+
+      <div class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
+        {others.map((other) => <MemberCard m={other} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -920,3 +920,26 @@ section.ed-section:first-of-type {
 .site-mobile-menu.is-open {
   animation: mobile-menu-in 0.22s ease-out both;
 }
+
+/* ---------------- Layered-class tone modifiers ----------------
+   Custom editorial classes are unlayered, so tone variants must be too —
+   otherwise Tailwind utilities (in @layer utilities) can never override them. */
+.ed-label--red { color: var(--color-signal); }
+.ed-label--ink { color: var(--color-ink); }
+.ed-label--ink-muted { color: var(--color-ink-muted); }
+.ed-label--paper { color: var(--color-paper); }
+.ed-value--paper { color: var(--color-paper); }
+.ed-body--stone { color: var(--color-stone); }
+.ed-row-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--color-ink-muted);
+}
+.ed-row-text--plain {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: 1rem;
+  color: var(--color-ink);
+}

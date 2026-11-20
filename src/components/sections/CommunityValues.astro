@@ -1,31 +1,65 @@
 ---
 import Label from '../ui/Label.astro';
+
+interface Props {
+  indexLabel?: string;
+  title?: string;
+}
+
+const {
+  indexLabel = '03 — OUR VALUES',
+  title = 'FIVE THINGS WE KEEP.',
+} = Astro.props;
+
+const values = [
+  {
+    title: 'Authenticity',
+    description: 'Menjadi diri sendiri tanpa harus berpura-pura menjadi orang lain.',
+  },
+  {
+    title: 'Togetherness',
+    description: 'Membangun hubungan yang hangat, saling menghargai, dan terbuka.',
+  },
+  {
+    title: 'Curiosity',
+    description: 'Selalu ingin tahu, mencoba hal baru, dan belajar dari berbagai perspektif.',
+  },
+  {
+    title: 'Sharing',
+    description: 'Berbagi pengalaman, ide, pengetahuan, serta cerita tanpa batas.',
+  },
+  {
+    title: 'Positivity',
+    description: 'Menciptakan ruang yang menyenangkan, suportif, dan penuh energi positif.',
+  },
+];
 ---
 
-<section class="ed-section" id="community-values" aria-labelledby="community-values-title">
-  <div class="ed-container">
-    <span id="community-values-title" class="ed-label">OUR VALUES — CORE FOUNDATIONS</span>
-    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-y-12 md:gap-x-8">
-      <li>
-        <Label tone="ink-muted" class="mb-4 block">01 — Authenticity</Label>
-        <p class="ed-value">Menjadi diri sendiri tanpa harus berpura-pura menjadi orang lain.</p>
-      </li>
-      <li>
-        <Label tone="ink-muted" class="mb-4 block">02 — Togetherness</Label>
-        <p class="ed-value">Membangun hubungan yang hangat, saling menghargai, dan terbuka.</p>
-      </li>
-      <li>
-        <Label tone="ink-muted" class="mb-4 block">03 — Curiosity</Label>
-        <p class="ed-value">Selalu ingin tahu, mencoba hal baru, dan belajar dari berbagai perspektif.</p>
-      </li>
-      <li>
-        <Label tone="ink-muted" class="mb-4 block">04 — Sharing</Label>
-        <p class="ed-value">Berbagi pengalaman, ide, pengetahuan, serta cerita tanpa batas.</p>
-      </li>
-      <li>
-        <Label tone="ink-muted" class="mb-4 block">05 — Positivity</Label>
-        <p class="ed-value">Menciptakan ruang yang menyenangkan, suportif, dan penuh energi positif.</p>
-      </li>
-    </ul>
+<section class="ed-section border-t border-stone" id="community-values" aria-labelledby="community-values-title">
+  <div class="ed-container grid grid-cols-12 gap-x-6 gap-y-10">
+    <div class="col-span-12 md:col-span-4">
+      <Label>{indexLabel}</Label>
+      <h2
+        id="community-values-title"
+        class="mt-4 font-display text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.05]"
+      >
+        {title}
+      </h2>
+      <p class="ed-meta mt-6 max-w-[26ch]">
+        Five foundations that keep this space warm, curious, and honest.
+      </p>
+    </div>
+
+    <ol class="col-span-12 border-t border-ink md:col-span-8" data-reveal-group>
+      {
+        values.map((value, i) => (
+          <li class="ed-row">
+            <span class="ed-row-index" aria-hidden="true">0{i + 1}</span>
+            <h3 class="ed-row-title">{value.title}</h3>
+            <p class="ed-row-text">{value.description}</p>
+          </li>
+        ))
+      }
+    </ol>
   </div>
 </section>
